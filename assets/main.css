@@ -220,3 +220,18 @@ body {
         text-decoration: underline;
         font-size: 14px;
     }
+
+
+
+    #inscription {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+    }
+/* 
