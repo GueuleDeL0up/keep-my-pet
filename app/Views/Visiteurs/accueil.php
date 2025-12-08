@@ -1,202 +1,50 @@
-<?php require_once '/app/Views/header.php'; ?>
+<?php
+// HEADER
+require_once __DIR__ . '/../header.php';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<title>KeepMyPet - Accueil</title>
-<link rel="stylesheet" href="assets/css/main.css">
-<!-- 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: white;
-    }
-
-    /* HEADER */
-    header {
-        display: flex;
-        align-items: center;
-        padding: 15px 40px;
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .logo-container img {
-        width: 80px;
-    }
-
-    .nav-bar {
-        margin-left: 60px;
-        background: #a8dcd5;
-        padding: 15px 40px;
-        border-radius: 40px;
-        font-size: 22px;
-        display: flex;
-        gap: 40px;
-        align-items: center;
-    }
-
-    .nav-bar a {
-        text-decoration: none;
-        color: #1e4b60;
-    }
-
-    .lang {
-        margin-left: auto;
-        background: #a8dcd5;
-        padding: 10px 20px;
-        border-radius: 40px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-weight: bold;
-    }
-
-    .flag {
-        width: 35px;
-        border-radius: 5px;
-    }
-
-    /* SECTION INTRO */
-    .intro {
-        display: flex;
-        margin: 40px;
-        background: #bfe6e0;
-        padding: 20px;
-    }
-
-    .intro img {
-        width: 400px;
-        height: auto;
-    }
-
-    .intro-text {
-        padding: 20px;
-        font-size: 18px;
-        line-height: 1.6;
-    }
-
-    /* COMMENT ÇA MARCHE */
-    .steps {
-        margin: 40px;
-        background: #bfe6e0;
-        padding: 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .steps ul {
-        font-size: 18px;
-    }
-
-    .question {
-        font-size: 120px;
-        margin-right: 40px;
-        opacity: 0.7;
-    }
-
-    /* FOOTER */
-    footer {
-        background: #e3f2ef;
-        padding: 30px 0;
-        display: flex;
-        justify-content: space-around;
-        text-align: center;
-    }
-
-    footer img {
-        width: 80px;
-    }
-
-    footer h3 {
-        margin-bottom: 10px;
-        color: #1e4b60;
-    }
-
-    footer p, footer a {
-        margin: 5px 0;
-        font-size: 14px;
-        color: #1e4b60;
-        text-decoration: none;
-    }
-</style> -->
-
+    <meta charset="UTF-8">
+    <title>KeepMyPet - Accueil</title>
+    <link rel="stylesheet" href="../../../public/assets/css/main.css">
 </head>
+
 <body>
-
-<header>
-    <div class="logo-container">
-        <img src="assets/KeepMyPet_Logo.png" alt="logo">
+    <!-- INTRO -->
+    <div class="intro">
+        <img src="https://i.imgur.com/SZk1y6V.png" alt="Animaux">
+        <div class="intro-text">
+            KeepYourPet met en relation les propriétaires d’animaux avec des gardiens
+            et promeneurs de confiance. Que ce soit pour une balade quotidienne, une
+            promenade ou une garde à domicile, nous veillons au bien-être de votre
+            compagnon pendant votre absence. Profitez l’esprit tranquille, votre animal
+            est entre de bonnes mains.
+        </div>
     </div>
 
-    <nav class="nav-bar">
-        <a href="#">Accueil</a> |
-        <a href="#">Annonces</a> |
-        <a href="#">Contact</a> |
-        <a href="Connexion.html">Connexion</a>
-    </nav>
+    <!-- COMMENT ÇA MARCHE -->
+    <div class="steps">
+        <div>
+            <h2>Comment ça marche ?</h2>
+            <ul>
+                <li>Inscrivez votre animal avec ses besoins et habitudes.</li>
+                <li>Choisissez un gardien ou promeneur et sélectionnez celui qui convient.</li>
+                <li>Profitez l’esprit tranquille et recevez des nouvelles de votre compagnon.</li>
+            </ul>
+        </div>
 
-    <div class="lang">
-        <img src="https://flagcdn.com/w40/fr.png" class="flag">
-        FR
-    </div>
-</header>
-
-<!-- INTRO -->
-<div class="intro">
-    <img src="https://i.imgur.com/SZk1y6V.png" alt="Animaux">
-    <div class="intro-text">
-        KeepYourPet met en relation les propriétaires d’animaux avec des gardiens
-        et promeneurs de confiance. Que ce soit pour une balade quotidienne, une
-        promenade ou une garde à domicile, nous veillons au bien-être de votre 
-        compagnon pendant votre absence. Profitez l’esprit tranquille, votre animal 
-        est entre de bonnes mains.
-    </div>
-</div>
-
-<!-- COMMENT ÇA MARCHE -->
-<div class="steps">
-    <div>
-        <h2>Comment ça marche ?</h2>
-        <ul>
-            <li>Inscrivez votre animal avec ses besoins et habitudes.</li>
-            <li>Choisissez un gardien ou promeneur et sélectionnez celui qui convient.</li>
-            <li>Profitez l’esprit tranquille et recevez des nouvelles de votre compagnon.</li>
-        </ul>
+        <div class="question">❓</div>
     </div>
 
-    <div class="question">❓</div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-    <div>
-        <img src="assets/G2Cidees_Logo.png" alt="G2Cidées Logo">
-    </div>
-
-    <div>
-        <h3>KeepMyPet</h3>
-        <p>A propos de KeepMyPet</p>
-        <p>Contact</p>
-    </div>
-
-    <div>
-        <h3>G2Cidées</h3>
-        <p>A propos de G2Cidées</p>
-        <p>Contact</p>
-    </div>
-
-    <div>
-        <p>© Copyright</p>
-        <p>G2Cidées 2025</p>
-    </div>
-</footer>
 
 </body>
-</html><?php require_once '/app/Views/footer.php'; ?>
+
+</html>
+
+<?php
+// FOOTER
+require_once __DIR__ . '/../footer.php';
+?>
