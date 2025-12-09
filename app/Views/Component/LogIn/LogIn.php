@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Log In</title>
-<link rel="stylesheet" href="/../../../../Public/assets/css/LogIn.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In</title>
+  <link rel="stylesheet" href="../../../../public/assets/css/LogIn.css">
 </head>
+
 <body>
 
-<button id="loginButton">Log in</button>
+  <div class="right">
+    <label>IDENTIFIANT</label>
+    <input type="text" class="input">
 
-<script src="/../../../../Public/assets/js/LogIn.js"></script>
+    <label>MOT DE PASSE</label>
+    <input type="password" class="input">
+
+
+    <a href="../../Utilisateurs/accueil.php"><button class="btn">Se connecter</button></a>
+
+
+    <div class="links">
+      <a href="#">Mot de passe oublié</a> –
+      <a href="../../inscription.php">S’inscrire</a>
+    </div>
+  </div>
 </body>
+
 </html>

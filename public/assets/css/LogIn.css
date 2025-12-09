@@ -1,14 +1,45 @@
-#loginButton {
-padding: 12px 25px;
-font-size: 18px;
-background-color: #1e90ff;
-color: white;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-transition: 0.25s;
+/* Bloc du formulaire */
+.right {
+  width: 380px;
+  border: 2px solid black;
+  border-radius: 35px;
+  padding: 40px;
+  background: white;
 }
 
-#loginButton:hover {
-background-color: #0b6fcc;
+.right label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input {
+  width: 100%;
+  height: 45px;
+  border-radius: 25px;
+  background: #d8d8d8;
+  margin: 10px 0 20px 0;
+  border: none;
+  font-size: 15px;
+  padding: 0 15px;
+}
+
+.btn {
+  width: 180px;
+  height: 45px;
+  background: #a8e0dd;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.links {
+  text-align: center;
+}
+.links a {
+  color: #0070ff;
+  text-decoration: underline;
+  font-size: 14px;
 }
