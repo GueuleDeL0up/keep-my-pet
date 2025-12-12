@@ -1,48 +1,84 @@
-/* HEADER */
-header {
+/* --- STYLE --- */
+
+/* logo-container */
+header .logo-container {
     display: flex;
-    align-items: center;
-    padding: 15px 40px;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-container img {
+header .logo-container img {
     width: 80px;
 }
 
-.nav-bar {
-    margin-left: 60px;
+/* nav-bar */
+header .nav-bar {
+    display: flex;
     background: #a8dcd5;
     padding: 15px 40px;
     border-radius: 40px;
     font-size: 22px;
-    display: flex;
     gap: 40px;
-    align-items: center;
 }
 
-.nav-bar a {
+header .nav-bar p {
+    margin: 0;
+}
+
+header .nav-bar a {
     text-decoration: none;
     color: #1e4b60;
 }
 
-.lang {
-    margin-left: auto;
+/* lang */
+header .lang {
+    display: flex;
+    align-items: center;
     background: #a8dcd5;
     padding: 10px 20px;
     border-radius: 40px;
-    display: flex;
-    align-items: center;
     gap: 15px;
     font-weight: bold;
 }
 
-.flag {
+header .lang p {
+    margin: 0;
+}
+
+header .lang .flag {
     width: 35px;
     border-radius: 5px;
+}
+
+/* --- RESPONSIVE --- */
+
+/* Mobile (< 601px) */
+@media (max-width: 600px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+    }
+}
+
+/* Tablet (601px - 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+    }
+}
+
+/* Desktop (> 1024px) */
+@media (min-width: 1025px) {
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+    }
 }

@@ -21,15 +21,18 @@
     </div>
 
     <nav class="nav-bar">
-      <a href="#">Accueil</a> |
-      <a href="#">Annonces</a> |
-      <a href="#">Contact</a> |
+      <a href="#">Accueil</a>
+      <p>|</p>
+      <a href="#">Annonces</a>
+      <p>|</p>
+      <a href="#">Contact</a>
+      <p>|</p>
       <a href="Connexion.html">Connexion</a>
     </nav>
 
     <div class="lang">
       <img src="https://flagcdn.com/w40/fr.png" class="flag">
-      FR
+      <p>FR</p>
     </div>
   </header>
 
