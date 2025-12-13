@@ -36,8 +36,8 @@ body {
 
 /* Cercle */
 .circle {
-  width: 5vw;
-  height: 5vw;
+  width: 4vw;
+  height: 4vw;
   border-radius: 50%;
   background-color: #60bdb6;
 }
@@ -46,9 +46,9 @@ body {
 .triangle {
   width: 0px;
   height: 0px;
-  border-left: 2.3vw solid transparent;
-  border-right: 2.3vw solid transparent;
-  border-bottom: 5vw solid #58b1c9;
+  border-left: 2vw solid transparent;
+  border-right: 2vw solid transparent;
+  border-bottom: 4vw solid #58b1c9;
 }
 
 /* --- RONDS (20) --- */
@@ -138,3 +138,4 @@ body {
 /* {
   border: 1px solid red;
 }
+*/
