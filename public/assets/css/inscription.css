@@ -135,6 +135,70 @@ body {
   left: 45%;
 }
 
+/* ================= RESPONSIVE ================= */
+
+/* Desktop (> 1024px) */
+@media (min-width: 1025px) {
+  body {
+    display: flex;
+    flex-direction: row; /* logo à gauche, login à droite */
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  .logo-container img {
+    width: 75%;
+  }
+  .login-container {
+    display: flex;
+    margin-left: 50px; /* espace entre logo et login */
+  }
+  .shapes-container {
+    display: block; /* formes visibles */
+  }
+}
+
+/* Tablet (601px – 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  body {
+    display: flex;
+    flex-direction: column; /* logo au-dessus du login */
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  .logo-container img {
+    width: 50%;
+  }
+  .login-container {
+    display: flex;
+    margin-top: 20px;
+  }
+  .shapes-container {
+    display: none;
+  }
+}
+
+/* Mobile (< 601px) */
+@media (max-width: 600px) {
+  body {
+    display: flex;
+    flex-direction: column; /* logo au-dessus du login */
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+  }
+  .logo-container img {
+    width: 30%;
+  }
+  .login-container {
+    display: flex;
+    margin-top: 15px;
+  }
+  .shapes-container {
+    display: none; /* cache les ronds et triangles pour éviter la superposition */
+  }
+}
 /* {
   border: 1px solid red;
 }
