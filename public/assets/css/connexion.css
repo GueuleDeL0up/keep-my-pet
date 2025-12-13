@@ -36,8 +36,8 @@ body {
 
 /* Cercle */
 .circle {
-  width: 5vw;
-  height: 5vw;
+  width: 4vw;
+  height: 4vw;
   border-radius: 50%;
   background-color: #60bdb6;
 }
@@ -46,9 +46,9 @@ body {
 .triangle {
   width: 0px;
   height: 0px;
-  border-left: 2.3vw solid transparent;
-  border-right: 2.3vw solid transparent;
-  border-bottom: 5vw solid #58b1c9;
+  border-left: 2vw solid transparent;
+  border-right: 2vw solid transparent;
+  border-bottom: 4vw solid #58b1c9;
 }
 
 /* --- RONDS (20) --- */
@@ -135,6 +135,70 @@ body {
   left: 45%;
 }
 
+/* ================= RESPONSIVE ================= */
+
+/* Desktop (> 1024px) */
+@media (min-width:1025px){
+    body{
+        display: flex;
+        flex-direction: row; /* logo à gauche, login à droite */
+        justify-content: center;
+        align-items: center;
+        padding:10px;
+    }
+    .logo-container img{
+        width:70%;
+    }
+    .login-container{
+        display:flex;
+        margin-left:40px; /* espace entre logo et login */
+    }
+    .shapes-container{
+        display:block; /* formes visibles */
+    }
+}
+
+/* Tablet (601px – 1024px) */
+@media (min-width:601px) and (max-width:1024px){
+    body{
+        display:flex;
+        flex-direction:column; /* logo au-dessus du login */
+        justify-content:center;
+        align-items:center;
+        padding:10px;
+    }
+    .logo-container img{
+        width:50%;
+    }
+    .login-container{
+        display:flex;
+        margin-top:20px;
+    }
+    .shapes-container{
+        display:none;
+    }
+}
+
+/* Mobile (< 601px) */
+@media (max-width:600px){
+    body{
+        display:flex;
+        flex-direction:column; /* logo au-dessus du login */
+        justify-content:center;
+        align-items:center;
+        padding:5px;
+    }
+    .logo-container img{
+        width:30%;
+    }
+    .login-container{
+        display:flex;
+        margin-top:15px;
+    }
+    .shapes-container{
+        display:none; /* cache les ronds et triangles pour éviter la superposition */
+    }
+}
 
 /* {
   border: 1px solid red;
