@@ -1,8 +1,7 @@
 <?php
-
-/**
- * View : HTML footer
- */
+// Define the base
+$base_url = "/App_dev_web/";  // For HTML links
+$base_dir = __DIR__ . "/../../";  // For PHP includes
 ?>
 
 <!DOCTYPE html>
@@ -10,15 +9,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>KeepMyPet - Accueil</title>
-  <link rel="stylesheet" href="../../../public/assets/css/footer.css">
+  <title>KeepMyPet - Footer</title>
+  <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/footer.css">
 </head>
 
 <body>
 
   <footer>
     <div class="logo-container">
-      <img src="../../../public/assets/images/G2Cidees_Logo.png" alt="G2Cidées Logo">
+      <img src="<?php echo $base_url; ?>/public/assets/images/G2Cidees_Logo.png" alt="G2Cidées Logo">
     </div>
 
     <div class="keepmypet-container">

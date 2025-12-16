@@ -1,84 +1,102 @@
 /* --- STYLE --- */
 
+header {
+  font-family: Arial, sans-serif;
+}
+
 /* logo-container */
 header .logo-container {
-    display: flex;
+  display: flex;
 }
 
 header .logo-container img {
-    width: 80px;
+  width: 80px;
 }
 
 /* nav-bar */
 header .nav-bar {
-    display: flex;
-    background: #a8dcd5;
-    padding: 15px 40px;
-    border-radius: 40px;
-    font-size: 22px;
-    gap: 40px;
+  display: flex;
+  background: #a8dcd5;
+  padding: 15px 40px;
+  border-radius: 40px;
+  font-size: 22px;
+  gap: 40px;
 }
 
 header .nav-bar p {
-    margin: 0;
+  margin: 0;
 }
 
 header .nav-bar a {
-    text-decoration: none;
-    color: #1e4b60;
+  text-decoration: none;
+  color: #1e4b60;
 }
 
 /* lang */
 header .lang {
-    display: flex;
-    align-items: center;
-    background: #a8dcd5;
-    padding: 10px 20px;
-    border-radius: 40px;
-    gap: 15px;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  background: #a8dcd5;
+  padding: 10px 20px;
+  border-radius: 40px;
+  gap: 15px;
+  font-weight: bold;
 }
 
 header .lang p {
-    margin: 0;
+  margin: 0;
 }
 
-header .lang .flag {
-    width: 35px;
-    border-radius: 5px;
+header .lang img {
+  width: 35px;
+  border-radius: 5px;
 }
 
 /* --- RESPONSIVE --- */
 
 /* Mobile (< 601px) */
 @media (max-width: 600px) {
-    header {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 10px;
-    }
+  header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "nav logo lang";
+    align-items: center;
+    padding: 10px 10px;
+  }
+
+  header .logo-container {
+    grid-area: logo;
+  }
+
+  header .nav-bar {
+    grid-area: nav;
+    display: none;
+  }
+
+  header .lang {
+    grid-area: lang;
+  }
 }
 
 /* Tablet (601px - 1024px) */
 @media (min-width: 601px) and (max-width: 1024px) {
-    header {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 10px;
-    }
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+  }
 }
 
 /* Desktop (> 1024px) */
 @media (min-width: 1025px) {
-    header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 10px;
-    }
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+  }
 }
