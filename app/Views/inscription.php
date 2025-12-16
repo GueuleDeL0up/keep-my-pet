@@ -1,5 +1,7 @@
 <?php
-$base_url = "http://localhost/App_dev_web";
+// Define the base
+$base_url = "http://localhost/App_dev_web/";  // For HTML links
+$base_dir = __DIR__ . "/../../../";  // For PHP includes
 ?>
 <!DOCTYPE html>
 <html lang="fr">
