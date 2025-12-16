@@ -35,8 +35,3 @@ $base_dir = __DIR__ . "/../../../../";  // For PHP includes
 </body>
 
 </html>
-
-<?php
-// FOOTER
-include $base_dir . '/app/Views/footer.php';
-?>
