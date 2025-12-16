@@ -1,7 +1,7 @@
 <?php
 // Define the base
 $base_url = "http://localhost/App_dev_web/";  // For HTML links
-$base_dir = __DIR__ . "/../../../";  // For PHP includes
+$base_dir = __DIR__ . "/../../";  // For PHP includes
 ?>
 
 <!DOCTYPE html>
@@ -56,4 +56,10 @@ $base_dir = __DIR__ . "/../../../";  // For PHP includes
 
 </body>
 
+
 </html>
+
+<?php
+// FOOTER
+include $base_dir . '/app/Views/footer.php';
+?>
