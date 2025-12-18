@@ -1,81 +1,112 @@
-CREATE DATABASE  IF NOT EXISTS keepMyPet CHARACTER SET utf8mb4 COLLATE utf8mb4_general_cli;
+CREATE DATABASE IF NOT EXISTS keepMyPet
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_general_ci;
 
 USE keepMyPet;
 
+-- Suppression des tables (ordre inverse des dépendances)
 DROP TABLE IF EXISTS Advertisement;
-DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Historical;
 DROP TABLE IF EXISTS Own;
 DROP TABLE IF EXISTS Animal;
 DROP TABLE IF EXISTS FAQ;
 DROP TABLE IF EXISTS Legal_Notice;
 DROP TABLE IF EXISTS CGU;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE FAQ(
-  id SERIAL PRIMARY KEY,
-  question varchar(100) NOT NULL, -- NOT NULL permet de ne pas avoir de champs vide 
-  answer varchar(100) NOT NULL
-)
+-- =========================
+-- TABLE FAQ
+-- =========================
+CREATE TABLE FAQ (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(100) NOT NULL,
+    answer VARCHAR(100) NOT NULL
+);
 
-CREATE TABLE CGU(
-  id SERIAL PRIMARY KEY,
-  -- ajouter les champs (on doit les définir)
-)
+-- =========================
+-- TABLE CGU
+-- =========================
+CREATE TABLE CGU (
+    id INT AUTO_INCREMENT PRIMARY KEY
+);
 
-CREATE TABLE Legal_Notice(
-  id SERIAL PRIMARY KEY,
-  description varchar(100) NOT NULL
-)
+-- =========================
+-- TABLE LEGAL NOTICE
+-- =========================
+CREATE TABLE Legal_Notice (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    description VARCHAR(100) NOT NULL
+);
 
-CREATE TABLE User(
-  id SERIAL PRIMARY KEY,
-  mail varchar (20) NOT NULL UNIQUE,
-  password (32) NOT NULL,
-  first_name varchar (32) NOT NULL,
-  last_name varchar (32) NOT NULL,
-  role varchar (4) NOT NULL DEFAULT 'user',
-  gender enum ('Homme', 'Femme') NOT NULL,
-  note float NOT NULL,
-  theme enum ('white','dark') NOT NULL, 
-  lang enum ('fr','eng') NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- =========================
+-- TABLE USERS
+-- =========================
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mail VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(32) NOT NULL,
+    first_name VARCHAR(32) NOT NULL,
+    last_name VARCHAR(32) NOT NULL,
+    role VARCHAR(10) NOT NULL DEFAULT 'user',
+    gender ENUM('Homme', 'Femme') NOT NULL,
+    note FLOAT NOT NULL,
+    theme ENUM('white', 'dark') NOT NULL,
+    lang ENUM('fr', 'eng') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-)
+-- =========================
+-- TABLE ANIMAL
+-- =========================
+CREATE TABLE Animal (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    race VARCHAR(20) NOT NULL,
+    gender ENUM('male', 'female', 'femelle') NOT NULL,
+    birthdate DATE NOT NULL,
+    note FLOAT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
-CREATE TABLE Animal(
-  id SERIAL PRIMARY KEY,
-  name varchar (20) NOT NULL,
-  race varchar (20) NOT NULL,
-  gender enum ('male', 'femelle', 'female') NOT NULL,
-  birthdate DATE NOT NULL,
-  note float NOT NULL,
-  FOREIGN KEY (user_id), REFERENCES user(id) ON DELETE CASCADE 
-)
+-- =========================
+-- TABLE OWN
+-- =========================
+CREATE TABLE Own (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    animal_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (animal_id) REFERENCES Animal(id) ON DELETE CASCADE
+);
 
-CREATE TABLE Own(
-  id SERIAL PRIMARY KEY,
-  FOREIGN KEY (user_id), REFERENCES user(id) ON DELETE CASCADE,
-  FOREIGN KEY (animal_id), REFERENCES animal(id) ON DELETE CASCADE
-)
+-- =========================
+-- TABLE HISTORICAL
+-- =========================
+CREATE TABLE Historical (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    note FLOAT NOT NULL,
+    comment VARCHAR(200) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
-CREATE TABLE Historical(
-  id SERIAL PRIMARY KEY,
-  note float NOT NULL,
-  comment varchar(200) NOT NULL,
-  FOREIGN KEY (user_id), REFERENCES user(id) ON DELETE CASCADE
-)
-
-CREATE TABLE Advertisement(
-  id SERIAL PRIMARY KEY,
-  title varchar (30) NOT NULL,
-  description TEXT NOT NULL,
-  localisation TEXT NOT NULL,
-  start_date DATE NOT NULL, -- à modifier, je pense que le schéma n'est pas correct ici
-  start_hour int NOT NULL, -- on pourrait avoir la date et l'heure seulement 
-  end_date DATE NOT NULL, -- avec le type DATE de mysql
-  end_hour int NOT NULL,
-  price float NOT NULL,
-  type enum('gardiennage', 'promenade') NOT NULL,
-  FOREIGN KEY (animal_id), REFERENCES animal(id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id), REFERENCES user(id) ON DELETE CASCADE
-)
+-- =========================
+-- TABLE ADVERTISEMENT
+-- =========================
+CREATE TABLE Advertisement (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    animal_id INT NOT NULL,
+    title VARCHAR(30) NOT NULL,
+    description TEXT NOT NULL,
+    localisation TEXT NOT NULL,
+    start_date DATE NOT NULL,
+    start_hour INT NOT NULL,
+    end_date DATE NOT NULL,
+    end_hour INT NOT NULL,
+    price FLOAT NOT NULL,
+    type ENUM('gardiennage', 'promenade') NOT NULL,
+    FOREIGN KEY (animal_id) REFERENCES Animal(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
