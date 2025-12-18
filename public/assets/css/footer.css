@@ -1,0 +1,82 @@
+/* --- STYLE --- */
+
+footer {
+  font-family: Arial, sans-serif;
+}
+
+/* footer */
+footer h3 {
+  margin: 10px 0;
+  color: #1e4b60;
+}
+
+footer p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #1e4b60;
+  text-decoration: none;
+}
+
+/* logo-container */
+footer .logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .logo-container img {
+  width: 80px;
+}
+
+/* keepmypet-container */
+footer .keepmypet-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+/* g2cidees-container */
+footer .g2cidees-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+/* copyright-container */
+footer .copyright-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+/* --- RESPONSIVE --- */
+
+/* Mobile AND Tablet (< 1024px) */
+@media (max-width: 1024px) {
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    padding: 10px 0;
+    background: #e3f2ef;
+  }
+}
+
+/* Desktop (> 1024px) */
+@media (min-width: 1025px) {
+  footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    padding: 10px 0;
+    background: #e3f2ef;
+  }
+}
