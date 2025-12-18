@@ -6,6 +6,7 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
 <!DOCTYPE html>
 <html lang="fr">
 
+
 <head>
     <meta charset="UTF-8">
     <title>KeepMyPet - Login</title>
@@ -54,5 +55,6 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
     </div>
 
 </body>
+
 
 </html>

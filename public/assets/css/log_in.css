@@ -43,13 +43,3 @@
   text-decoration: underline;
   font-size: 14px;
 }
-
-.login_container {
-  position: absolute;
-  top: 50%; /* distance du haut du conteneur ou de la page */
-  left: 77%; /* distance du côté gauche */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* centre l’élément par rapport à son point */
-}

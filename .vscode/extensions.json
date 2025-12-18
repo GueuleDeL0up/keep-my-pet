@@ -1,7 +1,8 @@
 {
-  "recommendations": [
-    "esbenp.prettier-vscode",
-    "ritwickdey.liveserver",
-    "ecmel.vscode-html-css"
-  ]
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "ritwickdey.liveserver",
+        "ecmel.vscode-html-css",
+        "bmewburn.vscode-intelephense-client"
+    ]
 }

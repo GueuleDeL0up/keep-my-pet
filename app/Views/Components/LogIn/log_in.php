@@ -1,3 +1,9 @@
+<?php
+// Define the base
+$base_url = "/App_dev_web/";  // For HTML links
+$base_dir = __DIR__ . "/../../../../";  // For PHP includes
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -5,7 +11,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log In</title>
-  <link rel="stylesheet" href="../../../../public/assets/css/log_in.css">
+  <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/log_in.css">
 </head>
 
 <body>
@@ -29,3 +35,8 @@
 </body>
 
 </html>
+
+<?php
+// FOOTER
+include $base_dir . '/app/Views/footer.php';
+?>
