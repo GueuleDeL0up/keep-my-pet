@@ -5,7 +5,7 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
-  // HTML / CSS / JS Formatting
+  // HTML / CSS / JS / PHP Formatting
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -15,10 +15,6 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
-  // Live Server Settings
-  "liveServer.settings.port": 5500,
-  "liveServer.settings.root": "/",
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
   }
