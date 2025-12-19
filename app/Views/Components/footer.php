@@ -21,14 +21,13 @@ $base_dir = __DIR__ . "/../../../";  // For PHP includes
 
     <div class="keepmypet-container">
       <h3>KeepMyPet</h3>
-      <p>A propos de KeepMyPet</p>
-      <p>Contact</p>
+      <a href="<?php echo $base_url; ?>/app/Views/contact.php">Contact</a>
+      <a href="<?php echo $base_url; ?>/app/Views/faq.php">FAQ</a>
     </div>
 
     <div class="g2cidees-container">
       <h3>G2Cidées</h3>
-      <p>A propos de G2Cidées</p>
-      <p>Contact</p>
+      <a href="<?php echo $base_url; ?>/app/Views/about_g2cidees.php">À propos de G2Cidées</a>
     </div>
 
     <div class="copyright-container">
