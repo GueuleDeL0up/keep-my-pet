@@ -12,6 +12,7 @@
   z-index: -1; 
   justify-content: space-around;
   overflow: hidden;
+  height: calc(100vh - 110px);
 }
 
 
@@ -108,8 +109,8 @@
   left: 70%;
 }
 #t9 {
-  top: 12%;
-  left: 75%;
+  top: 8%;
+  left: 74%;
 }
 #t10 {
   top: 3%;
@@ -124,11 +125,12 @@ html, body {
 }
 
 .container {
+  height: calc(100vh - 120px);
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5vw;          /* espace entre logo et login */
-  min-height: 100vh; /* prend toute la hauteur de l’écran */
+  /* prend toute la hauteur de l’écran */
   overflow-x: hidden; /* enlève le scroll horizontal */
 }
 
@@ -138,12 +140,13 @@ html, body {
 }
 
 .logo-container img {
-  width: 55%;
+  width: 50%;
+
 }
 
 .login-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-right: 4vw;
 }
 
@@ -156,7 +159,7 @@ html, body {
     gap : 110px
   }
   .logo-container img {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -166,11 +169,16 @@ html, body {
     flex-direction: column;
     gap: 30px;
   }
-
+  .logo-container {
+    margin-top: 100px;
+  }
   .logo-container img {
-    width: 40%;
+    width: 50%; 
   }
 
+  .login-container {
+    width: 50%;
+ }
   .shapes-container {
     display: none;
   }
@@ -179,7 +187,7 @@ html, body {
 /* Mobile (< 601px) */
 @media (max-width: 600px) {
   .logo-container img {
-    width: 30%;
+    width: 50%;
   }
 
   .shapes-container {
