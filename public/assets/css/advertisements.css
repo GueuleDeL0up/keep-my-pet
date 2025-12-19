@@ -1,0 +1,294 @@
+/* CSS SPÉCIFIQUE POUR TES FILTRES DÉROULANTS */
+.filters-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Style pour transformer les selects en jolis boutons */
+select.filter-pill {
+  padding: 10px 35px 10px 15px; /* Espace à droite pour la flèche */
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  appearance: none; /* Enlève le style moche par défaut */
+  -webkit-appearance: none;
+  outline: none;
+
+  /* Petite flèche grise personnalisée */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 10px auto;
+  transition: border-color 0.3s;
+}
+
+select.filter-pill:hover {
+  border-color: #999;
+}
+
+select.filter-pill:focus {
+  border-color: #4a90e2;
+}
+/* --- 1. CONTENEUR PRINCIPAL --- */
+.ads-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* --- 2. BARRE DE RECHERCHE ET BOUTON DU HAUT --- */
+.ads-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1; /* Prend toute la place dispo */
+}
+
+.search-wrapper input {
+  width: 100%;
+  padding: 12px 20px;
+  padding-right: 45px; /* Place pour l'icone */
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+
+.search-wrapper .search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.btn-deposit {
+  background-color: #4a90e2; /* Bleu principal */
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(74, 144, 226, 0.3);
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.btn-deposit:hover {
+  background-color: #357abd;
+}
+
+/* --- 3. LES FILTRES (Tes menus déroulants) --- */
+.filters-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+select.filter-pill {
+  padding: 10px 35px 10px 15px;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #555;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  /* Flèche perso */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 10px auto;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+select.filter-pill:hover {
+  border-color: #bbb;
+}
+
+select.filter-pill:focus {
+  border-color: #4a90e2;
+  color: #4a90e2;
+}
+
+/* --- 4. LA GRILLE (Gauche : Liste / Droite : Détail) --- */
+.ads-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr; /* La colonne de droite est un peu plus large */
+  gap: 25px;
+  align-items: start;
+}
+
+/* --- 5. COLONNE GAUCHE : LISTE DES CARTES --- */
+.ads-list-col {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ad-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ad-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Carte active (celle sélectionnée) */
+.ad-card.active {
+  border-color: #4a90e2;
+  background-color: #f8fbff;
+}
+
+.ad-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+/* Couleurs selon l'animal */
+.ad-icon.dog {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+.ad-icon.cat {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.ad-summary {
+  flex: 1;
+}
+
+.ad-summary h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+}
+
+.ad-summary p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.ad-meta {
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.ad-meta .rating {
+  color: #ffb400; /* Jaune étoile */
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ad-meta .price {
+  font-weight: bold;
+  color: #4a90e2;
+}
+
+/* --- 6. COLONNE DROITE : DÉTAILS --- */
+.ads-detail-col {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  position: sticky; /* Reste visible quand on scroll */
+  top: 20px;
+}
+
+.ads-detail-col h2 {
+  margin-top: 0;
+  color: #4a90e2;
+}
+
+.detail-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-info {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.detail-info li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.detail-info li i {
+  width: 25px;
+  color: #888;
+}
+
+.detail-desc {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.owner-rating {
+  font-weight: bold;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.owner-rating i {
+  color: #ffb400;
+}
+
+/* --- RESPONSIVE (Pour mobile) --- */
+@media (max-width: 768px) {
+  .ads-grid {
+    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+  }
+
+  .ads-detail-col {
+    order: -1; /* Mettre le détail en premier ou le cacher selon besoin */
+    display: none; /* Exemple : on cache le détail sur mobile pour simplifier */
+  }
+}

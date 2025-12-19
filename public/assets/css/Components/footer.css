@@ -10,7 +10,8 @@ footer h3 {
   color: #1e4b60;
 }
 
-footer p {
+footer p,
+footer a {
   margin: 5px 0;
   font-size: 14px;
   color: #1e4b60;

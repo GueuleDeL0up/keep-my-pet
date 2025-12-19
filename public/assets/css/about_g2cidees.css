@@ -1,0 +1,91 @@
+/* Container global */
+.about-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.about-content {
+  background-color: #cfebe7;
+  border-radius: 40px;
+  width: 100%;
+  max-width: 1000px;
+  padding: 60px;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+/* Texte */
+.about-text {
+  flex: 1.2;
+}
+
+.about-text h2 {
+  color: #000;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 17px;
+}
+
+/* Badges de valeurs */
+.team-values {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.value-tag {
+  background-color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #8ebcb6;
+  border: 1px solid #8ebcb6;
+}
+
+/* Image / Illustration équipe */
+.about-image {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+}
+
+.team-photo-wrapper {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 30px;
+  transform: rotate(3deg); /* Petit effet dynamique sympa */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.team-photo-wrapper img {
+  max-width: 100%;
+  border-radius: 20px;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .about-content {
+    flex-direction: column;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .team-values {
+    justify-content: center;
+  }
+
+  .team-photo-wrapper {
+    transform: rotate(0deg);
+  }
+}

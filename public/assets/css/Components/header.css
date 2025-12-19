@@ -62,6 +62,16 @@ header .lang img {
   border-radius: 5px;
 }
 
+header .lang select {
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  color: #1e4b60;
+  font-size: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
 /* --- RESPONSIVE --- */
 
 /* Mobile AND Tablet (< 1024px) */

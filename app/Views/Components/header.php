@@ -33,8 +33,12 @@ $base_dir = __DIR__ . "/../../../";  // For PHP includes
     </nav>
 
     <div class="lang">
-      <img src="<?php echo $base_url; ?>/public/assets/images/flags/french.png" alt="Drapeau" class="flag">
-      <p>FR</p>
+      <img src="<?php echo $base_url; ?>/public/assets/images/flags/fr.png" alt="Drapeau" class="flag" id="flag">
+      <select id="lang-select" onchange="changeLanguage()">
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+      </select>
     </div>
   </header>
 

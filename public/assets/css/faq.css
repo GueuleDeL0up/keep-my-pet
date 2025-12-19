@@ -1,0 +1,77 @@
+/* Container identique aux autres sections */
+.faq-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.faq-content {
+  background-color: #cfebe7; /* Même vert d'eau */
+  border-radius: 40px;
+  width: 100%;
+  max-width: 1000px;
+  padding: 50px;
+}
+
+.faq-content h2 {
+  color: #000;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.faq-content p {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Style de la liste FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-item {
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item summary {
+  padding: 20px;
+  list-style: none; /* Cache la flèche par défaut sur certains navigateurs */
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Petit indicateur "+" à droite */
+.faq-item summary::after {
+  content: "+";
+  font-size: 20px;
+  color: #8ebcb6;
+}
+
+/* Changement quand l'élément est ouvert */
+.faq-item[open] summary::after {
+  content: "−";
+}
+
+.faq-answer {
+  padding: 0 20px 20px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #555;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 15px;
+}
+
+/* Supprimer le contour bleu au clic */
+.faq-item summary:focus {
+  outline: none;
+}
