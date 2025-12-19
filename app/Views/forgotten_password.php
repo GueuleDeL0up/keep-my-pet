@@ -8,9 +8,9 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
 
 <head>
   <meta charset="UTF-8">
-  <title>KeepMyPet - Login</title>
+  <title>KeepMyPet - forgotten_password</title>
   <!-- link rel="stylesheet" href="../../public/assets/css/main.css"-->
-  <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/forgotten_password.css">
+  <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/forgotten__password.css">
 </head>
 
 <body>
@@ -22,7 +22,7 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
     </div>
 
     <div class="login-container">
-      <?php include 'Components/SignUp/sign_up.php'; ?>
+      <?php include $base_dir . '/app/Views/Components/forgotten_password.php'; ?>
     </div>
   </div>
 
@@ -46,13 +46,17 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
     <div class="shape triangle" id="t5"></div>
     <div class="shape triangle" id="t6"></div>
     <div class="shape triangle" id="t7"></div>
+    <div class="shape triangle" id="t8"></div>
+    <div class="shape triangle" id="t9"></div>
+    <div class="shape triangle" id="t10"></div>
   </div>
 
 </body>
 
 </html>
-
-<?php
-// FOOTER
-include $base_dir . '/app/Views/footer.php';
-?>
+<div class="forgotten-password">
+  <?php
+  // FOOTER
+  include $base_dir . '/app/Views/Components/footer.php';
+  ?>
+</div>
