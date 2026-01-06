@@ -177,6 +177,10 @@ body {
   flex-shrink: 0;
 }
 
+.btn:hover {
+  background: #58b1c9;
+}
+
 /* ================= RESPONSIVE ================= */
 
 /* Desktop (> 1024px) */
@@ -192,9 +196,6 @@ body {
   }
   .login-container {
     margin-right: 0%;
-  }
-  .btn:hover {
-    background: #58b1c9;
   }
 }
 
