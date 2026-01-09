@@ -17,7 +17,6 @@ body {
   max-width: 500px;
   padding: 2rem;
   box-sizing: border-box; /* padding inclus dans la largeur */
-  background: white;
   border: 1px solid black;
   border-radius: 1.2rem;
 }

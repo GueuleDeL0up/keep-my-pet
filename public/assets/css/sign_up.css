@@ -123,6 +123,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column; /* organise le contenu en colonne */
+  background-color: #f4f4f4;
 }
 
 .container {
