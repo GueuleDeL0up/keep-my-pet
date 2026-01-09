@@ -2,71 +2,66 @@
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: center; /* Centre horizontal */
-  align-items: center; /* Centre vertical */
+  justify-content: center;
+  align-items: center;
   background: #f4f4f4;
   font-family: Arial, sans-serif;
+  height: calc(100vh - 150px);
 }
 
-/* Cadre principal */
+/* Cadre formulaire */
 .right {
-  width: 450px;
-  background: white;
-  padding: 40px;
-  border: 2px solid black; /* Contour noir */
-  border-radius: 25px;
-  box-sizing: border-box; /* Empêche les débordements */
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  box-sizing: border-box; /* padding inclus dans la largeur */
+  border: 1px solid black;
+  border-radius: 1.2rem;
 }
 
 /* Labels */
 label {
-  display: block;
-  font-size: 14px;
+  font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 0.3rem;
 }
 
 /* Champs texte */
 .input {
   width: 100%;
-  max-width: 100%; /* Empêche tout dépassement */
-  padding: 13px 20px;
+  box-sizing: border-box;
+  border-radius: 1.2rem;
+  padding: 0.3rem 1rem;
+  margin-bottom: 3%;
   background: #e3e3e3;
   border: none;
-  border-radius: 25px;
-  margin-bottom: 22px;
-  font-size: 14px;
-  outline: none;
-  box-sizing: border-box; /* Très important */
 }
 
-/* Ligne contenant NOM et PRÉNOM */
+/* Ligne flex */
 .row {
   display: flex;
-  justify-content: space-between;
-  gap: 20px; /* Espace entre les deux champs */
+  gap: 0.8rem;
   width: 100%;
-  box-sizing: border-box;
+  flex-wrap: wrap; /* permet de passer sur 2 lignes sur mobile si besoin */
 }
 
-/* Colonnes pour nom et prénom */
+/* Colonnes */
 .col {
-  width: 100%;
+  flex: 1;
 }
 
-/* Bouton S'inscrire */
+/* Bouton */
 .btn {
   display: block;
-  margin-left: auto; /* Centre horizontalement */
-  margin-right: auto;
-  margin-top: 25px;
-  padding: 12px 35px;
+  width: 100%;
+  margin: 1rem 0 0;
+  padding: 0.7rem;
   background: #bde6e3;
   border: none;
-  border-radius: 25px;
-  font-size: 15px;
+  border-radius: 1.2rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -75,22 +70,25 @@ label {
   background: #a6d8d4;
 }
 
-/* Liens en bas */
+/* Liens */
 .links {
   text-align: center;
-  margin-top: 25px;
+  margin-top: 1rem;
 }
 
 .links a {
   color: #0a67d1;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.8rem;
 }
 
 .links a:hover {
   text-decoration: underline;
 }
 
-.col {
-  flex: 1;
+/* Adaptation mobile */
+@media screen and (max-width: 480px) {
+  .row {
+    flex-direction: column; /* empile les colonnes */
+  }
 }
