@@ -1,16 +1,16 @@
 <?php
 $host = "localhost";
-$dbname = "keepMyPet";
-$user = "root";
-$pass = ""; // vide par défaut avec XAMPP
+$dbname = "keep-my-pet";
+$username = "root";
+$password = "";
 
 try {
     $db = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-        $user,
-        $pass
+        $username,
+        $password
     );
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
+    die("Connection failed : " . $e->getMessage());
 }
