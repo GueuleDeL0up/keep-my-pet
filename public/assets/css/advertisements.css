@@ -46,7 +46,6 @@ select.filter-pill:focus {
 /* --- 2. BARRE DE RECHERCHE ET BOUTON DU HAUT --- */
 .ads-top-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   gap: 20px;
@@ -65,6 +64,7 @@ select.filter-pill:focus {
   border: 1px solid #ddd;
   font-size: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
   outline: none;
 }
 
