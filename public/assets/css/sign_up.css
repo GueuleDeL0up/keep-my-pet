@@ -166,7 +166,6 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  overflow-x: hidden;
   position: relative;
   padding: 0 2rem; /* pour éviter que le contenu touche les bords */
   gap: 0px;
