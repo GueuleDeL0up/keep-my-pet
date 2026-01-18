@@ -20,7 +20,7 @@ echo "<!-- BASE_URL = $base_url -->";
 
   <div class="container">
     <!-- Partie logo -->
-    <div class="logo-container">
+    <div class="logo-containerr">
       <img src="../../public/assets/images/KeepMyPet_Logo.png" alt="Logo KeepMyPet" class="logo">
     </div>
 

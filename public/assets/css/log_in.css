@@ -144,7 +144,6 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   background-color: #f4f4f4;
 }
 .container {
@@ -155,15 +154,14 @@ body {
   overflow-x: hidden;
   position: relative;
   padding: 0 1rem; /* pour éviter que le contenu touche les bords */
-  gap: 50vw; /* espace entre logo et login */
 }
 
-.logo-container {
+.logo-containerr {
   display: flex;
   justify-content: center;
 }
 
-.logo-container img {
+.logo-containerr img {
   width: clamp(18rem, 35vw, 40rem);
 }
 
@@ -183,15 +181,19 @@ body {
 @media (min-width: 1025px) {
   .container {
     flex-direction: row;
+    overflow: visible;
     gap: 27%;
   }
-  .logo-container img {
+  .logo-containerr img {
     width: 500px;
     margin-left: 40%;
     justify-content: space-around;
   }
-  .login-container {
-    margin-right: 0%;
+}
+
+@media (max-height: 650px) {
+  .shapes-container {
+    display: none;
   }
 }
 
@@ -203,8 +205,8 @@ body {
     gap: 0%;
   }
 
-  .logo-container img {
-    width: 53%;
+  .logo-containerr img {
+    width: 45%;
   }
   .login-container {
     max-width: 100%;
@@ -221,10 +223,11 @@ body {
     flex-direction: column;
     overflow: visible;
   }
-  .logo-container img {
-    width: 50%;
+  .logo-containerr img {
+    width: 65%;
   }
   .login-container {
+    max-width: 100%;
     display: flex;
     overflow: hidden;
   }
