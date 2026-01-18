@@ -9,7 +9,7 @@ $base_dir = __DIR__ . "/../../../";  // For PHP includes
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/Components/forgotten_password.css">
+  <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/Components/forgotten_password.css">
 </head>
 
 <body>
