@@ -10,7 +10,7 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
   <meta charset="UTF-8">
   <title>KeepMyPet - forgotten_password</title>
   <link rel="icon" type="image/png" href="<?php echo $base_url; ?>/public/assets/images/KeepMyPet_Logo.png" />
-  <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/forgotten_password.css">
+  <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/forgotten_password.css">
 </head>
 
 <body>
