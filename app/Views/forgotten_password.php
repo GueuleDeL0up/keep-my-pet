@@ -17,11 +17,11 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
 
   <div class=container>
     <!-- Partie logo -->
-    <div class="logo-container">
+    <div class="logo-containerr">
       <img src="../../public/assets/images/KeepMyPet_Logo.png" alt="Logo KeepMyPet" class="logo">
     </div>
 
-    <div class="login-container">
+    <div class="reset-container">
       <?php include $base_dir . '/app/Views/Components/forgotten_password.php'; ?>
     </div>
   </div>
