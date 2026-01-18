@@ -11,14 +11,14 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
   <title>KeepMyPet - Sign Up</title>
   <link rel="icon" type="image/png" href="<?php echo $base_url; ?>/public/assets/images/KeepMyPet_Logo.png" />
   <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/sign_up.css">
-  <script src="<?php echo $base_url; ?>public/assets/js/Components/signup.js" defer></script>
+  <script src="<?php echo $base_url; ?>/public/assets/js/Components/signup.js" defer></script>
 </head>
 
 <body>
 
   <div class=container>
     <!-- Partie logo -->
-    <div class="logo-container">
+    <div class="logo-containerr">
       <img src="../../public/assets/images/KeepMyPet_Logo.png" alt="Logo KeepMyPet" class="logo">
     </div>
 

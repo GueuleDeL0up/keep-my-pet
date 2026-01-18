@@ -11,27 +11,16 @@
   position: absolute; /* permet de les placer librement */
   width: 4vw;
   z-index: -1;
-  /* Animation du dégradé */
-  background-size: 200% 200%;
-  animation: gradientMove 12s linear infinite;
 }
-/* Animation du dégradé horizontal */
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
+
 .shapes-container {
+  height: calc(100vh - 110px);
   position: absolute; /* reste toujours par rapport à l’écran */
   inset: 0;
   pointer-events: none; /* pour que les formes ne bloquent pas le clic sur le formulaire */
   z-index: -1;
   justify-content: space-around;
   overflow: hidden;
-  height: calc(100vh - 110px);
 }
 
 /* Cercle */
@@ -152,7 +141,7 @@
 html,
 body {
   margin: 0;
-  padding: 0;
+  padding: 00;
   height: 100%;
 }
 body {
@@ -162,21 +151,22 @@ body {
   background-color: #f4f4f4;
 }
 .container {
-  flex: 1; /* prend tout l'espace restant entre header (s'il y en a) et footer */
+  flex: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  position: relative;
   padding: 0 2rem; /* pour éviter que le contenu touche les bords */
+  gap: clamp(2rem, 8vw, 6rem); /* espace responsive entre logo et formulaire */
 }
 
-.logo-container {
+.logo-containerr {
+  flex: 1 1 300px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.logo-container img {
-  width: clamp(18rem, 35vw, 40rem);
+.logo-containerr img {
+  width: clamp(18rem, 35vw, 35rem);
 }
 
 .signup-container {
@@ -196,17 +186,18 @@ body {
 @media (min-width: 1024px) {
   .container {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
   }
-
-  .logo-container img {
+  .logo-containerr {
+    margin-right: 2%;
+  }
+  .logo-containerr img {
     width: 500px;
   }
   .signup-container {
-    flex: 1;
-    max-width: 500px;
-    margin-left: 0%;
+    max-width: 35%;
+    margin-right: 0%;
   }
 }
 @media (max-height: 650px) {
@@ -224,11 +215,11 @@ body {
     gap: 0%;
   }
 
-  .logo-container img {
-    width: 53%;
+  .logo-containerr img {
+    flex: 1;
   }
   .signup-container {
-    max-width: 80%;
+    max-width: 65%;
     margin-left: 0%;
     justify-content: center;
     height: auto;
@@ -244,10 +235,11 @@ body {
     flex-direction: column;
     overflow: visible;
   }
-  .logo-container img {
-    width: 50%;
+  .logo-containerr {
+    width: 10%;
   }
   .signup-container {
+    max-width: 95%;
     display: flex;
     overflow: hidden;
   }
