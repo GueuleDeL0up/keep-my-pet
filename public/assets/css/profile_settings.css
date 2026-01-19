@@ -2,10 +2,10 @@
 :root {
   --bg: #f6fdfc;
   --card: #e6f7f5;
-  --accent: #47bdb0;
+  --accent: #5fbbb7;
   --text: #042b2b;
   --muted: #205a59;
-  --panel: #4bb2ab; /* kept for small accents */
+  --panel: #57b1c8; /* kept for small accents */
   --light: #ffffff;
 }
 

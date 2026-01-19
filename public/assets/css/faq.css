@@ -7,7 +7,7 @@
 }
 
 .faq-content {
-  background-color: #cfebe7; /* Même vert d'eau */
+  background-color: #e0f2f0; /* Même vert d'eau */
   border-radius: 40px;
   width: 100%;
   max-width: 1000px;
@@ -54,7 +54,7 @@
 .faq-item summary::after {
   content: "+";
   font-size: 20px;
-  color: #8ebcb6;
+  color: #5fbbb7;
 }
 
 /* Changement quand l'élément est ouvert */

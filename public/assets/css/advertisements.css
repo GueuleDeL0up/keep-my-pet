@@ -1,71 +1,54 @@
-/* CSS SPÉCIFIQUE POUR TES FILTRES DÉROULANTS */
-.filters-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Style pour transformer les selects en jolis boutons */
-select.filter-pill {
-  padding: 10px 35px 10px 15px; /* Espace à droite pour la flèche */
-  border-radius: 50px;
-  border: 1px solid #ddd;
-  background-color: white;
-  font-family: inherit;
-  font-size: 0.95rem;
-  cursor: pointer;
-  appearance: none; /* Enlève le style moche par défaut */
-  -webkit-appearance: none;
-  outline: none;
-
-  /* Petite flèche grise personnalisée */
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px top 50%;
-  background-size: 10px auto;
-  transition: border-color 0.3s;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
 }
 
-select.filter-pill:hover {
-  border-color: #999;
-}
-
-select.filter-pill:focus {
-  border-color: #4a90e2;
-}
-/* --- 1. CONTENEUR PRINCIPAL --- */
+/* Container */
 .ads-container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
 }
 
-/* --- 2. BARRE DE RECHERCHE ET BOUTON DU HAUT --- */
+/* Top Bar with Search and Button */
 .ads-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   gap: 20px;
 }
 
 .search-wrapper {
   position: relative;
-  flex: 1; /* Prend toute la place dispo */
+  flex: 1;
 }
 
 .search-wrapper input {
   width: 100%;
   padding: 12px 20px;
-  padding-right: 45px; /* Place pour l'icone */
+  padding-right: 45px;
   border-radius: 50px;
   border: 1px solid #ddd;
   font-size: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+  border-color: #5fbbb7;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
 }
 
 .search-wrapper .search-icon {
@@ -74,25 +57,29 @@ select.filter-pill:focus {
   top: 50%;
   transform: translateY(-50%);
   color: #888;
+  pointer-events: none;
 }
 
 .btn-deposit {
-  background-color: #4a90e2; /* Bleu principal */
+  background: linear-gradient(135deg, #5fbbb7 0%, #57b1c8 100%);
   color: white;
   padding: 12px 25px;
   border-radius: 50px;
   text-decoration: none;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(74, 144, 226, 0.3);
-  transition: background 0.3s;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
   white-space: nowrap;
 }
 
 .btn-deposit:hover {
-  background-color: #357abd;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-/* --- 3. LES FILTRES (Tes menus déroulants) --- */
+/* Filters Row */
 .filters-row {
   display: flex;
   gap: 10px;
@@ -106,18 +93,16 @@ select.filter-pill {
   border: 1px solid #ddd;
   background-color: white;
   font-family: inherit;
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 0.95rem;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
   outline: none;
-  /* Flèche perso */
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: right 12px top 50%;
   background-size: 10px auto;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
@@ -126,25 +111,25 @@ select.filter-pill:hover {
 }
 
 select.filter-pill:focus {
-  border-color: #4a90e2;
-  color: #4a90e2;
+  border-color: #5fbbb7;
 }
 
-/* --- 4. LA GRILLE (Gauche : Liste / Droite : Détail) --- */
+/* Main Grid Layout */
 .ads-grid {
   display: grid;
-  grid-template-columns: 1fr 1.4fr; /* La colonne de droite est un peu plus large */
+  grid-template-columns: 1fr 1.2fr;
   gap: 25px;
   align-items: start;
 }
 
-/* --- 5. COLONNE GAUCHE : LISTE DES CARTES --- */
+/* Left Column - Advertisements List */
 .ads-list-col {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
+/* Advertisement Card */
 .ad-card {
   display: flex;
   align-items: center;
@@ -153,142 +138,321 @@ select.filter-pill:focus {
   border-radius: 12px;
   border: 1px solid #eee;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
 }
 
 .ad-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #5fbbb7;
 }
 
-/* Carte active (celle sélectionnée) */
 .ad-card.active {
-  border-color: #4a90e2;
+  border-color: #5fbbb7;
   background-color: #f8fbff;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
 }
 
 .ad-icon {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
+  min-width: 50px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-right: 15px;
-  flex-shrink: 0;
+  background: linear-gradient(135deg, #5fbbb7 0%, #57b1c8 100%);
+  color: white;
 }
 
-/* Couleurs selon l'animal */
-.ad-icon.dog {
-  background-color: #e3f2fd;
-  color: #1976d2;
-}
-.ad-icon.cat {
-  background-color: #fff3e0;
-  color: #f57c00;
-}
-
-.ad-summary {
+.ad-card-info {
   flex: 1;
 }
 
-.ad-summary h3 {
-  margin: 0 0 5px 0;
-  font-size: 1.1rem;
+.ad-card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-.ad-summary p {
-  margin: 0;
+.ad-card-meta {
   font-size: 0.85rem;
-  color: #666;
-}
-
-.ad-meta {
-  text-align: right;
-  font-size: 0.9rem;
-}
-
-.ad-meta .rating {
-  color: #ffb400; /* Jaune étoile */
-  font-weight: bold;
+  color: #888;
   margin-bottom: 5px;
 }
 
-.ad-meta .price {
+.ad-card-price {
   font-weight: bold;
-  color: #4a90e2;
-}
-
-/* --- 6. COLONNE DROITE : DÉTAILS --- */
-.ads-detail-col {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  border: 1px solid #eee;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  position: sticky; /* Reste visible quand on scroll */
-  top: 20px;
-}
-
-.ads-detail-col h2 {
-  margin-top: 0;
-  color: #4a90e2;
-}
-
-.detail-subtitle {
+  color: #5fbbb7;
   font-size: 1.1rem;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #eee;
 }
 
-.detail-info {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
+/* No Results */
+.no-results {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  color: #888;
+  border: 1px solid #eee;
 }
 
-.detail-info li {
+.no-results p {
+  font-size: 1.1rem;
   margin-bottom: 10px;
+}
+
+/* Right Column - Advertisement Detail */
+.ads-detail-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.ad-detail {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.ad-detail-header {
+  background: linear-gradient(135deg, #5fbbb7 0%, #57b1c8 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.ad-detail-header h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.ad-detail-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.ad-detail-body {
+  padding: 30px;
+}
+
+.detail-section {
+  margin-bottom: 25px;
+}
+
+.detail-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+  border-bottom: 2px solid #5fbbb7;
+  padding-bottom: 8px;
+}
+
+.detail-section p {
+  color: #666;
+  line-height: 1.8;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.detail-item {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #5fbbb7;
+}
+
+.detail-item-label {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.detail-item-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* User Info */
+.user-info {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
+  gap: 15px;
+  margin-top: 10px;
 }
 
-.detail-info li i {
-  width: 25px;
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5fbbb7 0%, #57b1c8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.user-avatar-link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.user-avatar-link:hover .user-avatar {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.user-details h4 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.user-details p {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.user-contact {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-contact {
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-contact-primary {
+  background: linear-gradient(135deg, #5fbbb7 0%, #57b1c8 100%);
+  color: white;
+}
+
+.btn-contact-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-contact-secondary {
+  background-color: #e0e7ff;
+  color: #5fbbb7;
+}
+
+.btn-contact-secondary:hover {
+  background-color: #c7d2ff;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
   color: #888;
 }
 
-.detail-desc {
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  line-height: 1.5;
-  font-size: 0.95rem;
-  margin-bottom: 20px;
-}
-
-.owner-rating {
-  font-weight: bold;
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
   color: #555;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-.owner-rating i {
-  color: #ffb400;
+.empty-state p {
+  font-size: 1rem;
 }
 
-/* --- RESPONSIVE (Pour mobile) --- */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .ads-grid {
-    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+  .ads-top-bar {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .ads-detail-col {
-    order: -1; /* Mettre le détail en premier ou le cacher selon besoin */
-    display: none; /* Exemple : on cache le détail sur mobile pour simplifier */
+  .btn-deposit {
+    width: 100%;
+    text-align: center;
+  }
+
+  .ads-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ad-detail-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .ad-detail-body {
+    padding: 20px;
+  }
+
+  .user-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .filters-row {
+    gap: 8px;
+  }
+
+  select.filter-pill {
+    padding: 8px 30px 8px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ads-container {
+    padding: 10px;
+  }
+
+  .ad-card {
+    padding: 10px;
+  }
+
+  .ad-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .ad-detail-header {
+    padding: 20px;
+  }
+
+  .ad-detail-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .detail-section h3 {
+    font-size: 1rem;
   }
 }

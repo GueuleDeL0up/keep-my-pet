@@ -2,9 +2,6 @@
 // Define the base
 $base_url = "/keep-my-pet/";  // For HTML links
 $base_dir = __DIR__ . "/../../";  // For PHP includes
-
-// HEADER
-include $base_dir . "/app/Views/Components/header.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +14,11 @@ include $base_dir . "/app/Views/Components/header.php";
 </head>
 
 <body>
+  <?php
+  // HEADER
+  include $base_dir . "/app/Views/Components/header.php";
+  ?>
+
   <section class="faq-container">
     <div class="faq-content">
       <h2>Foire aux questions (FAQ)</h2>
@@ -53,7 +55,9 @@ include $base_dir . "/app/Views/Components/header.php";
     </div>
     </div>
   </section>
+
   <?php include $base_dir . '/app/Views/Components/footer.php'; ?>
+
 </body>
 
 </html>
