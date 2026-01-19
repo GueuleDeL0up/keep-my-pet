@@ -39,13 +39,13 @@ $add_animal_message = null;
 
 if ($is_own_profile) {
   $animals = obtenirAnimauxUtilisateur($viewer_id);
-  
+
   // Handle add animal if requested
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['race'])) {
     // Validate required fields
     $required_fields = ['name', 'race', 'gender', 'birthdate'];
     $has_error = false;
-    
+
     foreach ($required_fields as $field) {
       if (empty($_POST[$field])) {
         $add_animal_message = ['type' => 'error', 'text' => 'Tous les champs sont obligatoires'];
@@ -53,7 +53,7 @@ if ($is_own_profile) {
         break;
       }
     }
-    
+
     if (!$has_error) {
       // Sanitize data
       $animal_data = [
@@ -63,30 +63,30 @@ if ($is_own_profile) {
         'gender' => htmlspecialchars($_POST['gender']),
         'birthdate' => htmlspecialchars($_POST['birthdate'])
       ];
-      
+
       // Validate birthdate
       if (!strtotime($animal_data['birthdate'])) {
         $add_animal_message = ['type' => 'error', 'text' => 'La date de naissance est invalide'];
         $has_error = true;
       }
-      
+
       // Validate gender
       if (!$has_error && !in_array($animal_data['gender'], ['male', 'female'])) {
         $add_animal_message = ['type' => 'error', 'text' => 'Le genre doit être mâle ou femelle'];
         $has_error = true;
       }
-      
+
       // Validate lengths
       if (!$has_error && strlen($animal_data['name']) > 50) {
         $add_animal_message = ['type' => 'error', 'text' => 'Le nom ne doit pas dépasser 50 caractères'];
         $has_error = true;
       }
-      
+
       if (!$has_error && strlen($animal_data['race']) > 50) {
         $add_animal_message = ['type' => 'error', 'text' => 'La race ne doit pas dépasser 50 caractères'];
         $has_error = true;
       }
-      
+
       if (!$has_error) {
         // Create animal
         $animal_id = creerAnimal($animal_data);
@@ -100,7 +100,7 @@ if ($is_own_profile) {
       }
     }
   }
-  
+
   // Handle delete if requested
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) {
     $animal_id = (int)$_POST['delete_animal_id'];
@@ -216,12 +216,12 @@ if ($is_own_profile) {
                     <div class="animal-details">
                       <p><strong><?php echo htmlspecialchars($animal['race']); ?></strong></p>
                       <p><?php echo $animal['gender'] === 'male' ? '♂ Mâle' : '♀ Femelle'; ?></p>
-                      <p>Âge: <?php 
-                        $birthdate = new DateTime($animal['birthdate']);
-                        $today = new DateTime('today');
-                        $age = $birthdate->diff($today)->y;
-                        echo $age . ' an' . ($age > 1 ? 's' : '');
-                      ?></p>
+                      <p>Âge: <?php
+                              $birthdate = new DateTime($animal['birthdate']);
+                              $today = new DateTime('today');
+                              $age = $birthdate->diff($today)->y;
+                              echo $age . ' an' . ($age > 1 ? 's' : '');
+                              ?></p>
                     </div>
                     <a href="<?php echo $base_url; ?>/app/Views/create_advertisement.php?animal_id=<?php echo (int)$animal['id']; ?>" class="btn btn-secondary btn-block">
                       <i class="fas fa-bullhorn"></i> Créer annonce
@@ -283,14 +283,14 @@ if ($is_own_profile) {
       </div>
       <div class="modal-body">
         <p class="modal-subtitle">Inscrivez votre compagnon à fourrure</p>
-        
+
         <?php if ($add_animal_message): ?>
           <div class="alert alert-<?php echo $add_animal_message['type']; ?>">
             <i class="fas fa-<?php echo $add_animal_message['type'] === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
             <?php echo htmlspecialchars($add_animal_message['text']); ?>
           </div>
         <?php endif; ?>
-        
+
         <form method="POST" action="" class="modal-form" id="addAnimalForm">
           <div class="form-row">
             <div class="form-group">
@@ -352,7 +352,7 @@ if ($is_own_profile) {
     // Handle form submission
     document.getElementById('addAnimalForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
+
       const formData = new FormData(this);
       fetch(window.location.href, {
         method: 'POST',

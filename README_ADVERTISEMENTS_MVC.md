@@ -5,7 +5,7 @@
 La page annonces a été complètement refactorisée en suivant l'architecture **MVC** :
 
 - **Modèle** : Gestion de la base de données (286 lignes)
-- **Contrôleur** : Logique métier et filtrage (286 lignes)  
+- **Contrôleur** : Logique métier et filtrage (286 lignes)
 - **Vues** : HTML/PHP (365 lignes) + CSS (447 lignes) + JavaScript (91 lignes)
 
 **Total : 1475 lignes de code propre et séparé**
@@ -49,6 +49,7 @@ supprimerAnnonce($id, $user_id)      // Supprime une annonce
 ```
 
 **Sécurité** :
+
 - PDO avec prepared statements ✅
 - Pas d'injection SQL ✅
 
@@ -68,6 +69,7 @@ AdvertisementsController::supprimerAnnonce()        // Supprimer
 ### 3️⃣ **VUE** (`advertisements.php`)
 
 Affichage avec :
+
 - Barre de recherche
 - Filtres (type, ville, prix)
 - Grille 2 colonnes :
@@ -78,6 +80,7 @@ Affichage avec :
 ### 4️⃣ **CSS** (`advertisements.css`)
 
 Design moderne avec :
+
 - Gradient violet/bleu
 - Animations hover
 - Responsive (mobile, tablet, desktop)
@@ -87,9 +90,10 @@ Design moderne avec :
 ### 5️⃣ **JAVASCRIPT** (`advertisements.js`)
 
 Interactivité côté client :
+
 ```js
-selectAd(ad)           // Affiche les détails d'une annonce
-displayAdDetail(ad)    // Met à jour le panneau de droite
+selectAd(ad); // Affiche les détails d'une annonce
+displayAdDetail(ad); // Met à jour le panneau de droite
 // Auto-sélection de la première annonce au chargement
 ```
 
@@ -116,7 +120,7 @@ http://localhost:8888/keep-my-pet/app/Views/advertisements.php
 ✅ Avatar utilisateur avec initiales  
 ✅ Dates formatées en français  
 ✅ Gestion d'erreurs  
-✅ Sécurité maximale  
+✅ Sécurité maximale
 
 ---
 
@@ -167,6 +171,7 @@ JavaScript selectAd() affiche les détails sans recharger
 Pour ajouter une fonctionnalité :
 
 1. **Ajouter une fonction dans le Modèle** (`requests.advertisements.php`)
+
    ```php
    function nouvelleFunction() {
        // Code BD
@@ -174,6 +179,7 @@ Pour ajouter une fonctionnalité :
    ```
 
 2. **Ajouter une méthode dans le Contrôleur** (`AdvertisementsController.php`)
+
    ```php
    public static function nouveauTraitement() {
        $data = Model::nouvelleFunction();
@@ -182,6 +188,7 @@ Pour ajouter une fonctionnalité :
    ```
 
 3. **Utiliser dans la Vue** (`advertisements.php`)
+
    ```php
    $data = AdvertisementsController::nouveauTraitement();
    ```

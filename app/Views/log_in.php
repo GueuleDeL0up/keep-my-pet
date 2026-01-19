@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       // Find user by email
       $users = trouveParEmail($db, $email);
-      
+
       if (empty($users)) {
         $errors[] = 'Identifiants invalides.';
       } else {
         $user = $users[0];
-        
+
         // Verify password
         if (!password_verify($password, $user['password'])) {
           $errors[] = 'Identifiants invalides.';
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $_SESSION['user_email'] = $user['email'];
           $_SESSION['user_first_name'] = $user['first_name'];
           $_SESSION['user_last_name'] = $user['last_name'];
-          
+
           // Redirect to home
           header('Location: ' . $base_url . 'app/Views/home.php');
           exit;
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
   <div class="login-page">
-    
+
     <!-- Logo -->
     <div class="logo-container">
       <img src="<?php echo $base_url; ?>public/assets/images/KeepMyPet_Logo.png" alt="Logo KeepMyPet" class="logo">
@@ -85,25 +85,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <form method="POST" action="" class="login-form">
         <div class="form-group">
           <label for="email">Email</label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             id="email"
-            name="email" 
+            name="email"
             placeholder="votre@email.com"
-            value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>" 
-            required
-          >
+            value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
+            required>
         </div>
 
         <div class="form-group">
           <label for="password">Mot de passe</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             id="password"
-            name="password" 
+            name="password"
             placeholder="••••••••"
-            required
-          >
+            required>
         </div>
 
         <button type="submit" class="btn-login">Se connecter</button>
@@ -114,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <a href="<?php echo $base_url; ?>app/Views/forgotten_password.php">Mot de passe oublié ?</a>
         </p>
         <p>
-          Pas encore inscrit ? 
+          Pas encore inscrit ?
           <a href="<?php echo $base_url; ?>app/Views/sign_up.php">S'inscrire</a>
         </p>
       </div>

@@ -22,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (empty($first_name) || empty($last_name) || empty($email) || empty($phone) || empty($address) || empty($password)) {
     $errors[] = 'Tous les champs sont requis.';
   }
-  
+
   if (strlen($password) < 6) {
     $errors[] = 'Le mot de passe doit contenir au moins 6 caractères.';
   }
-  
+
   if ($password !== $password_confirm) {
     $errors[] = 'Les mots de passe ne correspondent pas.';
   }
@@ -41,19 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $check_stmt = $db->prepare($check_query);
       $check_stmt->execute([$email]);
       $existing = $check_stmt->fetch(PDO::FETCH_ASSOC);
-      
+
       if ($existing) {
         $errors[] = 'Cet email est déjà utilisé.';
       } else {
         // Create user
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        
+
         $query = "INSERT INTO users (first_name, last_name, email, phone_number, address, password, note) VALUES (?, ?, ?, ?, ?, ?, 0)";
         $stmt = $db->prepare($query);
         $stmt->execute([$first_name, $last_name, $email, $phone, $address, $hashed_password]);
-        
+
         $success = true;
-        
+
         // Redirect to login after 2 seconds
         header('refresh:2; url=' . $base_url . 'app/Views/log_in.php');
       }
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
   <div class="login-page">
-    
+
     <!-- Logo -->
     <div class="logo-container">
       <img src="<?php echo $base_url; ?>public/assets/images/KeepMyPet_Logo.png" alt="Logo KeepMyPet" class="logo">
@@ -106,84 +106,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" action="" class="login-form">
           <div class="form-group">
             <label for="first_name">Prénom</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               id="first_name"
-              name="first_name" 
+              name="first_name"
               placeholder="Votre prénom"
               value="<?php echo htmlspecialchars($_POST['first_name'] ?? ''); ?>"
-              required
-            >
+              required>
           </div>
 
           <div class="form-group">
             <label for="last_name">Nom</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               id="last_name"
-              name="last_name" 
+              name="last_name"
               placeholder="Votre nom"
               value="<?php echo htmlspecialchars($_POST['last_name'] ?? ''); ?>"
-              required
-            >
+              required>
           </div>
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               id="email"
-              name="email" 
+              name="email"
               placeholder="votre@email.com"
               value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
-              required
-            >
+              required>
           </div>
 
           <div class="form-group">
             <label for="phone">Numéro de téléphone</label>
-            <input 
-              type="tel" 
+            <input
+              type="tel"
               id="phone"
-              name="phone" 
+              name="phone"
               placeholder="+33 6 12 34 56 78"
               value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>"
-              required
-            >
+              required>
           </div>
 
           <div class="form-group">
             <label for="address">Adresse</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               id="address"
-              name="address" 
+              name="address"
               placeholder="123 Rue de la Paix, 75000 Paris"
               value="<?php echo htmlspecialchars($_POST['address'] ?? ''); ?>"
-              required
-            >
+              required>
           </div>
 
           <div class="form-group">
             <label for="password">Mot de passe</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               id="password"
-              name="password" 
+              name="password"
               placeholder="Minimum 6 caractères"
-              required
-            >
+              required>
           </div>
 
           <div class="form-group">
             <label for="password_confirm">Confirmer le mot de passe</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               id="password_confirm"
-              name="password_confirm" 
+              name="password_confirm"
               placeholder="Confirmez votre mot de passe"
-              required
-            >
+              required>
           </div>
 
           <button type="submit" class="btn-login">S'inscrire</button>
@@ -192,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="form-links">
         <p>
-          Vous avez déjà un compte ? 
+          Vous avez déjà un compte ?
           <a href="<?php echo $base_url; ?>app/Views/log_in.php">Se connecter</a>
         </p>
       </div>

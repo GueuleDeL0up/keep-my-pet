@@ -1,7 +1,7 @@
 <?php
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 // Define the base
@@ -38,12 +38,11 @@ include $base_dir . "/app/Views/Components/header.php";
     <div class="ads-top-bar">
       <div class="search-wrapper">
         <form method="GET" style="display: flex; width: 100%;">
-          <input 
-            type="text" 
-            name="search" 
-            placeholder="Rechercher sur KeepMyPet" 
-            value="<?php echo htmlspecialchars($filters['search'] ?? ''); ?>"
-          />
+          <input
+            type="text"
+            name="search"
+            placeholder="Rechercher sur KeepMyPet"
+            value="<?php echo htmlspecialchars($filters['search'] ?? ''); ?>" />
           <i class="fas fa-search search-icon"></i>
         </form>
       </div>
@@ -71,32 +70,29 @@ include $base_dir . "/app/Views/Components/header.php";
           </option>
         </select>
 
-        <input 
-          type="text" 
-          name="city" 
-          class="filter-pill" 
+        <input
+          type="text"
+          name="city"
+          class="filter-pill"
           placeholder="Ville"
           value="<?php echo htmlspecialchars($filters['city'] ?? ''); ?>"
-          style="padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd;"
-        />
+          style="padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd;" />
 
-        <input 
-          type="number" 
-          name="min_price" 
-          class="filter-pill" 
+        <input
+          type="number"
+          name="min_price"
+          class="filter-pill"
           placeholder="Prix min"
           value="<?php echo htmlspecialchars($filters['min_price'] ?? ''); ?>"
-          style="padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd; width: 120px;"
-        />
+          style="padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd; width: 120px;" />
 
-        <input 
-          type="number" 
-          name="max_price" 
-          class="filter-pill" 
+        <input
+          type="number"
+          name="max_price"
+          class="filter-pill"
           placeholder="Prix max"
           value="<?php echo htmlspecialchars($filters['max_price'] ?? ''); ?>"
-          style="padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd; width: 120px;"
-        />
+          style="padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd; width: 120px;" />
 
         <button type="submit" style="padding: 10px 20px; border-radius: 50px; border: 1px solid #ddd; background: #5fbbb7; color: white; cursor: pointer;">
           Rechercher
@@ -126,11 +122,11 @@ include $base_dir . "/app/Views/Components/header.php";
               <div class="ad-card-info">
                 <div class="ad-card-title"><?php echo htmlspecialchars($annonce['title']); ?></div>
                 <div class="ad-card-meta">
-                  <i class="fas fa-map-marker-alt"></i> 
+                  <i class="fas fa-map-marker-alt"></i>
                   <?php echo htmlspecialchars($annonce['city']); ?>
                 </div>
                 <div class="ad-card-meta">
-                  <i class="fas fa-calendar-alt"></i> 
+                  <i class="fas fa-calendar-alt"></i>
                   <?php echo date('d/m/Y', strtotime($annonce['start_date'])); ?>
                 </div>
               </div>

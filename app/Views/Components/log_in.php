@@ -23,25 +23,23 @@ if (!isset($base_url)) {
   <form method="POST" action="" class="login-form">
     <div class="form-group">
       <label for="email">Email</label>
-      <input 
-        type="email" 
+      <input
+        type="email"
         id="email"
-        name="email" 
+        name="email"
         placeholder="votre@email.com"
-        value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>" 
-        required
-      >
+        value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
+        required>
     </div>
 
     <div class="form-group">
       <label for="password">Mot de passe</label>
-      <input 
-        type="password" 
+      <input
+        type="password"
         id="password"
-        name="password" 
+        name="password"
         placeholder="••••••••"
-        required
-      >
+        required>
     </div>
 
     <button type="submit" class="btn-login">Se connecter</button>
@@ -52,7 +50,7 @@ if (!isset($base_url)) {
       <a href="<?php echo $base_url; ?>/app/Views/forgotten_password.php">Mot de passe oublié ?</a>
     </p>
     <p>
-      Pas encore inscrit ? 
+      Pas encore inscrit ?
       <a href="<?php echo $base_url; ?>/app/Views/sign_up.php">S'inscrire</a>
     </p>
   </div>

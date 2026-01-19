@@ -56,8 +56,8 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
           <button type="submit" class="btn-submit">Envoyer</button>
         </form>
       </div>
-        <img src="<?php echo $base_url; ?>/public/assets/images/question_cat.png" alt="Contact KeepMyPet">
-      </div>
+      <img src="<?php echo $base_url; ?>/public/assets/images/question_cat.png" alt="Contact KeepMyPet">
+    </div>
     </div>
 
     <!-- Info Cards -->
@@ -88,7 +88,7 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
     document.querySelector('.keepmypet-form')?.addEventListener('submit', function(e) {
       const submitBtn = this.querySelector('.btn-submit');
       const originalText = submitBtn.textContent;
-      
+
       submitBtn.textContent = 'Envoi en cours...';
       submitBtn.disabled = true;
 

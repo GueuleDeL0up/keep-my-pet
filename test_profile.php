@@ -10,16 +10,15 @@ print_r($ads);
 
 // Vérifier les utilisateurs
 if (!empty($ads)) {
-    foreach ($ads as $ad) {
-        $stmt = $db->prepare("SELECT id, first_name, last_name FROM users WHERE id = ?");
-        $stmt->execute([$ad['user_id']]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo "\nUtilisateur " . $ad['user_id'] . ": ";
-        if ($user) {
-            echo $user['first_name'] . " " . $user['last_name'];
-        } else {
-            echo "NON TROUVÉ!";
-        }
+  foreach ($ads as $ad) {
+    $stmt = $db->prepare("SELECT id, first_name, last_name FROM users WHERE id = ?");
+    $stmt->execute([$ad['user_id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    echo "\nUtilisateur " . $ad['user_id'] . ": ";
+    if ($user) {
+      echo $user['first_name'] . " " . $user['last_name'];
+    } else {
+      echo "NON TROUVÉ!";
     }
+  }
 }
-?>
