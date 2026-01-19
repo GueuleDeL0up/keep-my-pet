@@ -1,0 +1,99 @@
+/* Empêcher les bordures rouges de debug */
+* {
+  border: none !important;
+}
+
+/* Container principal style "bloc" */
+.contact-container {
+  display: flex;
+  justify-content: center;
+  padding: 40 20px;
+  font-family: "Arial", sans-serif; /* À adapter selon ta police */
+}
+
+.contact-content {
+  background-color: #cfebe7; /* Le vert d'eau de ton image */
+  border-radius: 40px;
+  width: 100%;
+  max-width: 1000px;
+  padding: 50px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Typographie */
+.contact-content h2 {
+  color: #000;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.contact-content p {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Formulaire */
+.keepmypet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 15px;
+  background-color: #ffffff;
+  font-size: 14px;
+}
+
+/* Bouton style Header */
+.btn-submit {
+  background-color: #a8dad4; /* Un peu plus foncé ou identique au header */
+  color: #333;
+  border: 2px solid #8ebcb6;
+  padding: 12px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: flex-start;
+  transition: background 0.3s ease;
+}
+
+/* Profile page layout: center the profile card */
+.profile-page {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Fallback to ensure the card is centered if other rules conflict */
+.profile-card {
+  margin: 20px auto !important;
+}
