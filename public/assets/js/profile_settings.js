@@ -20,7 +20,7 @@
     });
     // mark active
     navItems.forEach((li) =>
-      li.classList.toggle("active", li.dataset.tab === tab)
+      li.classList.toggle("active", li.dataset.tab === tab),
     );
     // show main Compte view by default when tab is 'compte'
     if (tab === "compte") {
@@ -61,7 +61,7 @@
       .value.trim();
     const newPwd = pwdForm.querySelector('input[name="new_password"]').value;
     const confirm = pwdForm.querySelector(
-      'input[name="new_password_confirm"]'
+      'input[name="new_password_confirm"]',
     ).value;
 
     if (!current) {
@@ -95,51 +95,51 @@
   // Theme and Font Management
   const themeSelect = document.getElementById("theme-select");
   const fontSelect = document.getElementById("font-select");
-  
+
   // Load saved preferences
   function loadPreferences() {
     const savedTheme = localStorage.getItem("theme") || "light";
     const savedFont = localStorage.getItem("font") || "default";
-    
+
     if (themeSelect) themeSelect.value = savedTheme;
     if (fontSelect) fontSelect.value = savedFont;
-    
+
     applyFont(savedFont);
   }
-  
+
   // Apply font to document
   function applyFont(font) {
     document.documentElement.setAttribute("data-font", font);
   }
-  
+
   // Save all preferences
-  window.savePreferences = function() {
+  window.savePreferences = function () {
     const selectedTheme = themeSelect.value;
     const selectedFont = fontSelect.value;
-    
+
     localStorage.setItem("theme", selectedTheme);
     localStorage.setItem("font", selectedFont);
-    
+
     if (window.applyTheme) {
       window.applyTheme(selectedTheme);
     }
     applyFont(selectedFont);
-    
+
     showToast("Préférences enregistrées");
-  }
-  
+  };
+
   // Listen for font changes
   fontSelect?.addEventListener("change", (e) => {
     applyFont(e.target.value);
   });
-  
+
   // Listen for theme changes
   themeSelect?.addEventListener("change", (e) => {
     if (window.applyTheme) {
       window.applyTheme(e.target.value);
     }
   });
-  
+
   // Load preferences on page load
   loadPreferences();
 

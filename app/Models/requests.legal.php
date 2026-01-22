@@ -8,23 +8,23 @@ require_once __DIR__ . '/connection_db.php';
  */
 function obtenirDernierLegalParType(string $type)
 {
-    global $db;
-    $current_language = isset($_SESSION['language']) ? $_SESSION['language'] : 'fr';
-    $sql = "SELECT id, type, titre, contenu, updated_at FROM cgu
+  global $db;
+  $current_language = isset($_SESSION['language']) ? $_SESSION['language'] : 'fr';
+  $sql = "SELECT id, type, titre, contenu, updated_at FROM cgu
             WHERE type = :type AND language = :language AND (published = 1 OR published IS NULL)
             ORDER BY updated_at DESC, id DESC
             LIMIT 1";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([':type' => $type, ':language' => $current_language]);
-    return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+  $stmt = $db->prepare($sql);
+  $stmt->execute([':type' => $type, ':language' => $current_language]);
+  return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
 }
 
 function obtenirDerniereCGU()
 {
-    return obtenirDernierLegalParType('cgu');
+  return obtenirDernierLegalParType('cgu');
 }
 
 function obtenirDernieresMentions()
 {
-    return obtenirDernierLegalParType('mentions');
+  return obtenirDernierLegalParType('mentions');
 }

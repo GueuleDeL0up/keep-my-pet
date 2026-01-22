@@ -60,7 +60,7 @@ include $base_dir . "/app/Views/Components/header.php";
       <div class="settings-header">
         <h1>⚙️ <?php echo t('settings'); ?></h1>
       </div>
-      
+
       <section id="compte">
         <h2><?php echo t('account'); ?></h2>
         <p class="lead"><?php echo t('manage_account_info'); ?></p>
@@ -141,10 +141,10 @@ include $base_dir . "/app/Views/Components/header.php";
             <p><?php echo t('no_finished_bookings'); ?></p>
           <?php else: ?>
             <div class="history-list">
-              <?php foreach ($history as $item): 
+              <?php foreach ($history as $item):
                 $role_label = $item['role'] === 'sitter' ? t('sitter') : t('owner');
-                $counterpart = $item['role'] === 'sitter' 
-                  ? ($item['owner_first_name'] . ' ' . $item['owner_last_name']) 
+                $counterpart = $item['role'] === 'sitter'
+                  ? ($item['owner_first_name'] . ' ' . $item['owner_last_name'])
                   : ($item['sitter_first_name'] . ' ' . $item['sitter_last_name']);
                 $counterpart_id = $item['role'] === 'sitter' ? (int)$item['owner_id'] : (int)$item['sitter_id'];
                 $start_hour = is_object($item['start_hour']) ? $item['start_hour']->format('H:i') : $item['start_hour'];
@@ -155,13 +155,13 @@ include $base_dir . "/app/Views/Components/header.php";
                     <div class="history-title"><?php echo htmlspecialchars($item['ad_title']); ?></div>
                     <div class="history-meta">
                       <span class="badge"><?php echo t('finished'); ?></span>
-                      <span><?php echo $role_label; ?> ?? <?php echo t('with'); ?> 
+                      <span><?php echo $role_label; ?> ?? <?php echo t('with'); ?>
                         <a class="history-link" href="<?php echo $base_url; ?>/app/Views/user_profile.php?id=<?php echo $counterpart_id; ?>">
                           <?php echo htmlspecialchars($counterpart); ?>
                         </a>
                       </span>
                       <span><?php echo htmlspecialchars($item['animal_name']); ?></span>
-                      <span><?php echo formatDate($item['start_date'], 'short'); ?> <?php echo $start_hour; ?> 
+                      <span><?php echo formatDate($item['start_date'], 'short'); ?> <?php echo $start_hour; ?>
                         ??? <?php echo formatDate($item['end_date'], 'short'); ?> <?php echo $end_hour; ?></span>
                     </div>
                   </div>
@@ -183,15 +183,15 @@ include $base_dir . "/app/Views/Components/header.php";
               <option value="es" <?php echo $current_language === 'es' ? 'selected' : ''; ?>>🇪🇸 <?php echo t('spanish'); ?></option>
             </select>
           </form>
-          
+
           <label><?php echo t('font'); ?></label>
-            <select id="font-select">
+          <select id="font-select">
             <option value="default"><?php echo t('default_segoe'); ?></option>
             <option value="verdana"><?php echo t('verdana_accessibility'); ?></option>
             <option value="arial">Arial</option>
             <option value="georgia">Georgia</option>
           </select>
-          
+
           <label><?php echo t('theme'); ?></label>
           <select id="theme-select">
             <option value="light"><?php echo t('light'); ?></option>
@@ -211,40 +211,40 @@ include $base_dir . "/app/Views/Components/header.php";
 
   <script>
     var PROFILE_SAVED = <?php echo $saved ? 'true' : 'false'; ?>;
-    
+
     function saveLanguagePreference() {
       var select = document.getElementById("language-select");
       var lang = select.value;
       var base_url = "/keep-my-pet/";
-      
+
       console.log('Saving language preference:', lang);
-      
+
       fetch(base_url + 'app/API/changeLanguage.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'lang=' + encodeURIComponent(lang)
-      })
-      .then(response => {
-        console.log('Response status:', response.status);
-        return response.json();
-      })
-      .then(data => {
-        console.log('Response data:', data);
-        if (data.success) {
-          console.log('Language saved, reloading...');
-          // Reload page to apply language changes
-          setTimeout(() => {
-            window.location.href = window.location.href;
-          }, 500);
-        } else {
-          console.error('Error:', data.error);
-        }
-      })
-      .catch(error => {
-        console.error('Fetch error:', error);
-      });
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: 'lang=' + encodeURIComponent(lang)
+        })
+        .then(response => {
+          console.log('Response status:', response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log('Response data:', data);
+          if (data.success) {
+            console.log('Language saved, reloading...');
+            // Reload page to apply language changes
+            setTimeout(() => {
+              window.location.href = window.location.href;
+            }, 500);
+          } else {
+            console.error('Error:', data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Fetch error:', error);
+        });
     }
   </script>
   <script src="<?php echo $base_url; ?>/public/assets/js/theme.js"></script>

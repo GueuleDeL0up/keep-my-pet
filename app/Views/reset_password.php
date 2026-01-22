@@ -27,7 +27,7 @@ if (empty($token)) {
     $stmt = $db->prepare("SELECT * FROM users WHERE reset_token = ? AND reset_token_expiry > NOW()");
     $stmt->execute([$token]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     if (!$user) {
       $errors[] = t('error_token_expired');
     }
@@ -54,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($token) && $user) {
       $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
       $stmt = $db->prepare("UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE id = ?");
       $stmt->execute([$hashed_password, $user['id']]);
-      
+
       $success = true;
-      
+
       // Redirect to login after 3 seconds
       header('refresh:3; url=' . $base_url . 'app/Views/log_in.php');
     } catch (Exception $e) {

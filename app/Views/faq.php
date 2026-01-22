@@ -45,7 +45,7 @@ $faqs = obtenirToutesFAQ();
             </div>
           </details>
         <?php endforeach; ?>
-        
+
         <?php if (empty($faqs)): ?>
           <p style="text-align: center; color: #999; padding: 20px;"><?php echo t('faq_empty'); ?></p>
         <?php endif; ?>

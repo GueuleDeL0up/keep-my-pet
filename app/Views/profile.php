@@ -107,45 +107,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_ad_id'])) {
 
 // Handle rating submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rate_ad_id'])) {
-    $ad_id = (int)$_POST['rate_ad_id'];
-    $rating = (int)$_POST['rating'];
-    $comment = trim($_POST['comment'] ?? '');
-    $sitter_id = (int)$_POST['sitter_id'];
-    $animal_rating = isset($_POST['animal_rating']) ? (int)$_POST['animal_rating'] : null;
-    $animal_id = isset($_POST['animal_id']) ? (int)$_POST['animal_id'] : null;
-    
-    error_log("DEBUG RATING: ad_id=$ad_id, viewer_id=$viewer_id, sitter_id=$sitter_id, rating=$rating");
-    
-    $success = false;
-    
-    if ($rating >= 1 && $rating <= 5) {
-      // Note the sitter/owner
-      $result = creerAvis($ad_id, $viewer_id, $sitter_id, $rating, $comment);
-      error_log("DEBUG: creerAvis returned " . ($result ? 'TRUE' : 'FALSE'));
-      
-      if ($result) {
-        $success = true;
-        
-        // If this is a sitter rating and they provided animal rating, also rate the animal
-        if ($animal_rating && $animal_id && $animal_rating >= 1 && $animal_rating <= 5) {
-          // Insert review for animal
-          try {
-            global $db;
-            $stmt = $db->prepare("
+  $ad_id = (int)$_POST['rate_ad_id'];
+  $rating = (int)$_POST['rating'];
+  $comment = trim($_POST['comment'] ?? '');
+  $sitter_id = (int)$_POST['sitter_id'];
+  $animal_rating = isset($_POST['animal_rating']) ? (int)$_POST['animal_rating'] : null;
+  $animal_id = isset($_POST['animal_id']) ? (int)$_POST['animal_id'] : null;
+
+  error_log("DEBUG RATING: ad_id=$ad_id, viewer_id=$viewer_id, sitter_id=$sitter_id, rating=$rating");
+
+  $success = false;
+
+  if ($rating >= 1 && $rating <= 5) {
+    // Note the sitter/owner
+    $result = creerAvis($ad_id, $viewer_id, $sitter_id, $rating, $comment);
+    error_log("DEBUG: creerAvis returned " . ($result ? 'TRUE' : 'FALSE'));
+
+    if ($result) {
+      $success = true;
+
+      // If this is a sitter rating and they provided animal rating, also rate the animal
+      if ($animal_rating && $animal_id && $animal_rating >= 1 && $animal_rating <= 5) {
+        // Insert review for animal
+        try {
+          global $db;
+          $stmt = $db->prepare("
               INSERT INTO reviews (advertisement_id, reviewer_id, reviewed_animal_id, rating, comment) 
               VALUES (?, ?, ?, ?, ?)
             ");
-            $stmt->execute([$ad_id, $viewer_id, $animal_id, $animal_rating, $comment]);
-            
-            // Update animal's note
-            noterAnimal($animal_id, $animal_rating);
-          } catch (PDOException $e) {
-            error_log("Erreur notation animal: " . $e->getMessage());
-          }
+          $stmt->execute([$ad_id, $viewer_id, $animal_id, $animal_rating, $comment]);
+
+          // Update animal's note
+          noterAnimal($animal_id, $animal_rating);
+        } catch (PDOException $e) {
+          error_log("Erreur notation animal: " . $e->getMessage());
         }
       }
     }
-    
+  }
+
   if ($success) {
     $ad_message = ['type' => 'success', 'text' => t('review_added')];
     $user_ads = obtenirAnnoncesParUtilisateur($viewer_id);
@@ -156,19 +156,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rate_ad_id'])) {
 
 // Handle add animal if requested
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['race'])) {
-    // Validate required fields
-    $required_fields = ['name', 'race', 'gender', 'birthdate'];
-    $has_error = false;
+  // Validate required fields
+  $required_fields = ['name', 'race', 'gender', 'birthdate'];
+  $has_error = false;
 
-    foreach ($required_fields as $field) {
-      if (empty($_POST[$field])) {
-        $add_animal_message = ['type' => 'error', 'text' => t('all_fields_required')];
-        $has_error = true;
-        break;
-      }
+  foreach ($required_fields as $field) {
+    if (empty($_POST[$field])) {
+      $add_animal_message = ['type' => 'error', 'text' => t('all_fields_required')];
+      $has_error = true;
+      break;
     }
+  }
 
-      if (!$has_error) {
+  if (!$has_error) {
     // Sanitize data
     $animal_data = [
       'user_id' => $viewer_id,
@@ -176,13 +176,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
       'race' => htmlspecialchars(trim($_POST['race'])),
       'gender' => htmlspecialchars($_POST['gender']),
       'birthdate' => htmlspecialchars($_POST['birthdate'])
-  ];
+    ];
 
     // Validate birthdate
     if (!strtotime($animal_data['birthdate'])) {
       $add_animal_message = ['type' => 'error', 'text' => t('invalid_birthdate')];
       $has_error = true;
-  }
+    }
 
     // Validate gender
     if (!$has_error && !in_array($animal_data['gender'], ['male', 'female'])) {
@@ -332,11 +332,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
                       <p><strong><?php echo htmlspecialchars($animal['race']); ?></strong></p>
                       <p><?php echo $animal['gender'] === 'male' ? '♂ ' . t('male') : '♀ ' . t('female'); ?></p>
                       <p><?php echo t('age'); ?>: <?php
-                              $birthdate = new DateTime($animal['birthdate']);
-                              $today = new DateTime('today');
-                              $age = $birthdate->diff($today)->y;
-                              echo $age . ' an' . ($age > 1 ? 's' : '');
-                              ?></p>
+                                                  $birthdate = new DateTime($animal['birthdate']);
+                                                  $today = new DateTime('today');
+                                                  $age = $birthdate->diff($today)->y;
+                                                  echo $age . ' an' . ($age > 1 ? 's' : '');
+                                                  ?></p>
                     </div>
                     <a href="<?php echo $base_url; ?>/app/Views/create_advertisement.php?animal_id=<?php echo (int)$animal['id']; ?>" class="btn btn-secondary btn-block">
                       <i class="fas fa-bullhorn"></i> <?php echo t('create_ad'); ?>
@@ -363,24 +363,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
             <?php endif; ?>
 
             <div class="bookings-list">
-              <?php foreach ($demandes_recues as $demande): 
+              <?php foreach ($demandes_recues as $demande):
                 $status_color = $demande['status'] === 'pending' ? 'pending' : ($demande['status'] === 'accepted' ? 'accepted' : 'rejected');
               ?>
                 <div class="booking-card booking-<?php echo $status_color; ?>">
                   <div class="booking-header">
                     <h3><?php echo htmlspecialchars($demande['ad_title']); ?></h3>
                     <span class="booking-status status-<?php echo $demande['status']; ?>">
-                      <?php 
-                        $status_text = [
-                          'pending' => '⛳ ' . t('pending'),
-                          'accepted' => '✅ ' . t('accept'),
-                          'rejected' => '❌ Refusée'
-                        ];
-                        echo $status_text[$demande['status']] ?? 'Inconnue';
+                      <?php
+                      $status_text = [
+                        'pending' => '⛳ ' . t('pending'),
+                        'accepted' => '✅ ' . t('accept'),
+                        'rejected' => '❌ Refusée'
+                      ];
+                      echo $status_text[$demande['status']] ?? 'Inconnue';
                       ?>
                     </span>
                   </div>
-                  
+
                   <div class="booking-info">
                     <p><strong><?php echo t('sitter'); ?>:</strong> <?php echo htmlspecialchars($demande['sitter_first_name'] . ' ' . $demande['sitter_last_name']); ?></p>
                     <p><strong><?php echo t('animal'); ?>:</strong> <?php echo htmlspecialchars($demande['animal_name']); ?></p>
@@ -418,7 +418,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
             </div>
 
             <div class="bookings-list">
-              <?php foreach ($sitter_bookings as $booking): 
+              <?php foreach ($sitter_bookings as $booking):
                 $end_datetime = strtotime($booking['end_date'] . ' ' . ($booking['end_hour'] ?? '00:00'));
                 $is_finished = $end_datetime && $end_datetime < time();
                 $already_rated = aDejaNote($booking['advertisement_id'], $viewer_id);
@@ -481,19 +481,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
               </div>
             <?php else: ?>
               <div class="ads-grid">
-                <?php foreach ($user_ads as $ad): 
+                <?php foreach ($user_ads as $ad):
                   // Check if ad is finished by comparing date + time
                   $end_hour = $ad['end_hour'] ?? '00:00';
-                  
+
                   // Handle if end_hour is an object (DateTime from PDO)
                   if (is_object($end_hour)) {
                     $end_hour = $end_hour->format('H:i:s');
                   }
-                  
+
                   $end_datetime = strtotime($ad['end_date'] . ' ' . $end_hour);
                   $current_time = time();
                   $is_finished = $end_datetime && $end_datetime < $current_time;
-                  
+
                   $can_rate = $is_finished && !empty($ad['user_id']) && $ad['user_id'] != $viewer_id;
                   $already_rated = $can_rate && aDejaNote($ad['id'], $viewer_id);
                   $is_owner = ($ad['user_id'] == $viewer_id);
@@ -513,13 +513,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
                     <div class="ad-meta">
                       <span><i class="fas fa-calendar"></i> <?php echo formatDate($ad['start_date'], 'short'); ?> à <?php echo $ad['start_hour']; ?> - <?php echo formatDate($ad['end_date'], 'short'); ?> à <?php echo $ad['end_hour']; ?></span>
                     </div>
-                    
+
                     <?php if ($is_finished): ?>
                       <div class="ad-status-container" style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
                         <div class="ad-status finished-badge">
-                        <i class="fas fa-check-circle"></i> <?php echo t('finished'); ?>
-                        
-                        <?php 
+                          <i class="fas fa-check-circle"></i> <?php echo t('finished'); ?>
+
+                          <?php
                           // Check if there's an accepted sitter for this ad
                           $accepted_sitter = obtenirGardienAccepte($ad['id']);
                           if ($accepted_sitter && $is_owner) {
@@ -531,22 +531,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
                               </button>
                             <?php else: ?>
                               <span class="rated-badge"><i class="fas fa-check"></i> Gardien noté</span>
-                            <?php endif;
+                          <?php endif;
                           }
-                        ?>
-                      </div>
-                    <?php endif; ?>
-                    
-                    <div class="ad-actions">
-                      <form method="POST" style="display: inline;" onsubmit="return confirm('Supprimer cette annonce ?');">
-                        <input type="hidden" name="delete_ad_id" value="<?php echo (int)$ad['id']; ?>">
-                        <button type="submit" class="btn btn-danger btn-sm">
-                          <i class="fas fa-trash"></i> Supprimer
-                        </button>
-                      </form>
-                      
-                      <?php if ($can_rate && !$already_rated): ?>
-                        <?php 
+                          ?>
+                        </div>
+                      <?php endif; ?>
+
+                      <div class="ad-actions">
+                        <form method="POST" style="display: inline;" onsubmit="return confirm('Supprimer cette annonce ?');">
+                          <input type="hidden" name="delete_ad_id" value="<?php echo (int)$ad['id']; ?>">
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Supprimer
+                          </button>
+                        </form>
+
+                        <?php if ($can_rate && !$already_rated): ?>
+                          <?php
                           // Determine if viewer is the owner or a sitter
                           if ($is_owner) {
                             // Owner is viewing and ad is finished - can rate the sitter
@@ -555,18 +555,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
                             // Sitter can rate the owner and animal
                             $button_text = "Noter l'expérience";
                           }
-                        ?>
-                        <button class="btn btn-primary btn-sm" onclick="openRatingModal(<?php echo (int)$ad['id']; ?>, <?php echo (int)$ad['user_id']; ?>, '<?php echo htmlspecialchars(addslashes($ad['title'])); ?>', <?php echo (int)$ad['animal_id']; ?>, <?php echo $is_owner ? 'false' : 'true'; ?>)">
-                          <i class="fas fa-star"></i> <?php echo $button_text; ?>
-                        </button>
-                      <?php elseif ($already_rated): ?>
-                        <span class="rated-badge"><i class="fas fa-check"></i> <?php echo t('already_rated'); ?></span>
-                      <?php endif; ?>
-                    </div>
+                          ?>
+                          <button class="btn btn-primary btn-sm" onclick="openRatingModal(<?php echo (int)$ad['id']; ?>, <?php echo (int)$ad['user_id']; ?>, '<?php echo htmlspecialchars(addslashes($ad['title'])); ?>', <?php echo (int)$ad['animal_id']; ?>, <?php echo $is_owner ? 'false' : 'true'; ?>)">
+                            <i class="fas fa-star"></i> <?php echo $button_text; ?>
+                          </button>
+                        <?php elseif ($already_rated): ?>
+                          <span class="rated-badge"><i class="fas fa-check"></i> <?php echo t('already_rated'); ?></span>
+                        <?php endif; ?>
+                      </div>
+                      </div>
+                    <?php endforeach; ?>
                   </div>
-                <?php endforeach; ?>
-              </div>
-            <?php endif; ?>
+                <?php endif; ?>
           </section>
         <?php endif; ?>
 
@@ -670,12 +670,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
       </div>
       <div class="modal-body">
         <p class="modal-subtitle" id="ratingAdTitle"></p>
-        
+
         <form method="POST" action="" class="modal-form" id="ratingForm">
           <input type="hidden" name="rate_ad_id" id="rate_ad_id">
           <input type="hidden" name="sitter_id" id="sitter_id">
           <input type="hidden" name="animal_id" id="animal_id">
-          
+
           <div class="form-group">
             <label>Note du gardien (sur 5)</label>
             <div class="rating-input">
@@ -691,7 +691,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
               <label for="star1"><i class="fas fa-star"></i></label>
             </div>
           </div>
-          
+
           <!-- Animal rating section (shown only for sitters) -->
           <div id="animalRatingSection" style="display: none;">
             <div class="form-group">
@@ -710,12 +710,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
               </div>
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="comment">Commentaire (optionnel)</label>
             <textarea name="comment" id="comment" rows="4" placeholder="Partagez votre expérience..."></textarea>
           </div>
-          
+
           <div class="modal-actions">
             <button type="button" class="btn btn-secondary" onclick="closeRatingModal()">Annuler</button>
             <button type="submit" class="btn btn-primary">Envoyer la note</button>
@@ -742,14 +742,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
         closeAddAnimalModal();
       }
     });
-    
+
     // Rating modal functions
     function openRatingModal(adId, sitterId, adTitle, animalId, isSitter) {
       document.getElementById('rate_ad_id').value = adId;
       document.getElementById('sitter_id').value = sitterId;
       document.getElementById('animal_id').value = animalId || '';
       document.getElementById('ratingAdTitle').textContent = 'Annonce: ' + adTitle;
-      
+
       const animalRatingSection = document.getElementById('animalRatingSection');
       if (isSitter && animalId) {
         // Sitter is rating - show animal rating field
@@ -758,7 +758,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_animal_id'])) 
         // Owner is rating - hide animal rating field
         animalRatingSection.style.display = 'none';
       }
-      
+
       document.getElementById('ratingModal').style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }

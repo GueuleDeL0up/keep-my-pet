@@ -239,7 +239,9 @@ body {
   border-radius: 8px;
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 0.2s, transform 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
 }
 .toast.show {
   opacity: 1;

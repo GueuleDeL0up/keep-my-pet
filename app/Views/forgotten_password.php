@@ -31,20 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = t('error_email_not_found');
       } else {
         $user = $users[0];
-        
+
         // Generate password reset token
         $token = bin2hex(random_bytes(32));
-        
+
         // Store token in database - use MySQL NOW() + INTERVAL for expiry
         try {
           $stmt = $db->prepare("UPDATE users SET reset_token = ?, reset_token_expiry = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = ?");
           $stmt->execute([$token, $user['id']]);
-          
+
           // Create reset link - use $_SERVER to get the proper host and protocol
           $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
           $host = $_SERVER['HTTP_HOST'];
           $reset_link = $protocol . $host . "/keep-my-pet/app/Views/reset_password.php?token=" . $token;
-          
+
           // Email body
           $email_body = "
             <html>
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </body>
             </html>
           ";
-          
+
           // Store email in debug_emails table
           $stmt = $db->prepare("INSERT INTO debug_emails (to_email, subject, body, token, created_at) VALUES (?, ?, ?, ?, NOW())");
           $stmt->execute([
@@ -72,9 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email_body,
             $token
           ]);
-          
+
           $success = true;
-          
+
           // Redirect to debug emails page after 2 seconds
           header('refresh:2; url=' . $base_url . 'app/Views/debug_emails.php');
         } catch (Exception $e) {

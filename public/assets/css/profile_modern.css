@@ -476,7 +476,7 @@ body {
 /* Créer une belle croix avec des lignes */
 .modal-close::before,
 .modal-close::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 2px;

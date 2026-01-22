@@ -144,10 +144,10 @@ include $base_dir . "/app/Views/Components/header.php";
                   <div class="review-summary">
                     <div class="review-stars">
                       <?php
-                        $r = (int)$review['rating'];
-                        for ($i = 1; $i <= 5; $i++) {
-                          echo $i <= $r ? '<i class="fas fa-star filled"></i>' : '<i class="fas fa-star empty"></i>';
-                        }
+                      $r = (int)$review['rating'];
+                      for ($i = 1; $i <= 5; $i++) {
+                        echo $i <= $r ? '<i class="fas fa-star filled"></i>' : '<i class="fas fa-star empty"></i>';
+                      }
                       ?>
                     </div>
                     <div class="review-meta">

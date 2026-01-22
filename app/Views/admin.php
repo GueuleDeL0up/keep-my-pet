@@ -116,7 +116,9 @@ $ads = $ad_search !== '' ? rechercherAnnonces(['search' => $ad_search]) : obteni
           </thead>
           <tbody>
             <?php if (empty($users)): ?>
-              <tr><td colspan="7" class="empty">Aucun utilisateur</td></tr>
+              <tr>
+                <td colspan="7" class="empty">Aucun utilisateur</td>
+              </tr>
             <?php else: ?>
               <?php foreach ($users as $user): ?>
                 <tr>
@@ -164,7 +166,9 @@ $ads = $ad_search !== '' ? rechercherAnnonces(['search' => $ad_search]) : obteni
           </thead>
           <tbody>
             <?php if (empty($ads)): ?>
-              <tr><td colspan="7" class="empty">Aucune annonce</td></tr>
+              <tr>
+                <td colspan="7" class="empty">Aucune annonce</td>
+              </tr>
             <?php else: ?>
               <?php foreach ($ads as $ad): ?>
                 <tr>

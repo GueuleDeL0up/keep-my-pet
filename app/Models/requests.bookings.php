@@ -12,25 +12,25 @@ require_once __DIR__ . '/connection_db.php';
  */
 function creerDemande(int $ad_id, int $sitter_id, int $owner_id): bool
 {
-    try {
-        global $db;
-        
-        // Check if booking already exists
-        $check = $db->prepare("SELECT id FROM bookings WHERE advertisement_id = ? AND sitter_id = ?");
-        $check->execute([$ad_id, $sitter_id]);
-        if ($check->fetch()) {
-            return false; // Already exists
-        }
-        
-        $stmt = $db->prepare("
+  try {
+    global $db;
+
+    // Check if booking already exists
+    $check = $db->prepare("SELECT id FROM bookings WHERE advertisement_id = ? AND sitter_id = ?");
+    $check->execute([$ad_id, $sitter_id]);
+    if ($check->fetch()) {
+      return false; // Already exists
+    }
+
+    $stmt = $db->prepare("
             INSERT INTO bookings (advertisement_id, sitter_id, owner_id, status) 
             VALUES (?, ?, ?, 'pending')
         ");
-        return $stmt->execute([$ad_id, $sitter_id, $owner_id]);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la création de la demande: " . $e->getMessage());
-        return false;
-    }
+    return $stmt->execute([$ad_id, $sitter_id, $owner_id]);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la création de la demande: " . $e->getMessage());
+    return false;
+  }
 }
 
 /**
@@ -40,9 +40,9 @@ function creerDemande(int $ad_id, int $sitter_id, int $owner_id): bool
  */
 function obtenirDemandesRecues(int $owner_id): array
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT 
                 b.*,
                 a.title as ad_title,
@@ -63,12 +63,12 @@ function obtenirDemandesRecues(int $owner_id): array
             WHERE b.owner_id = ?
             ORDER BY b.created_at DESC
         ");
-        $stmt->execute([$owner_id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la récupération des demandes: " . $e->getMessage());
-        return [];
-    }
+    $stmt->execute([$owner_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération des demandes: " . $e->getMessage());
+    return [];
+  }
 }
 
 /**
@@ -78,9 +78,9 @@ function obtenirDemandesRecues(int $owner_id): array
  */
 function obtenirGardesParGardien(int $sitter_id): array
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT 
                 b.*,
                 a.title as ad_title,
@@ -99,12 +99,12 @@ function obtenirGardesParGardien(int $sitter_id): array
             WHERE b.sitter_id = ? AND b.status = 'accepted'
             ORDER BY a.start_date DESC
         ");
-        $stmt->execute([$sitter_id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la récupération des gardes: " . $e->getMessage());
-        return [];
-    }
+    $stmt->execute([$sitter_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération des gardes: " . $e->getMessage());
+    return [];
+  }
 }
 
 /**
@@ -114,9 +114,9 @@ function obtenirGardesParGardien(int $sitter_id): array
  */
 function obtenirGardesTermineesUtilisateur(int $user_id): array
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT 
                 b.id AS booking_id,
                 b.advertisement_id,
@@ -148,13 +148,13 @@ function obtenirGardesTermineesUtilisateur(int $user_id): array
               )
             ORDER BY a.end_date DESC, a.end_hour DESC
         ");
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la récupération de l'historique des gardes: " . $e->getMessage());
-        return [];
-    }
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération de l'historique des gardes: " . $e->getMessage());
+    return [];
+  }
 }
 
 /**
@@ -164,18 +164,18 @@ function obtenirGardesTermineesUtilisateur(int $user_id): array
  */
 function accepterDemande(int $booking_id): bool
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             UPDATE bookings 
             SET status = 'accepted', responded_at = NOW()
             WHERE id = ?
         ");
-        return $stmt->execute([$booking_id]);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de l'acceptation de la demande: " . $e->getMessage());
-        return false;
-    }
+    return $stmt->execute([$booking_id]);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de l'acceptation de la demande: " . $e->getMessage());
+    return false;
+  }
 }
 
 /**
@@ -185,18 +185,18 @@ function accepterDemande(int $booking_id): bool
  */
 function refuserDemande(int $booking_id): bool
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             UPDATE bookings 
             SET status = 'rejected', responded_at = NOW()
             WHERE id = ?
         ");
-        return $stmt->execute([$booking_id]);
-    } catch (PDOException $e) {
-        error_log("Erreur lors du refus de la demande: " . $e->getMessage());
-        return false;
-    }
+    return $stmt->execute([$booking_id]);
+  } catch (PDOException $e) {
+    error_log("Erreur lors du refus de la demande: " . $e->getMessage());
+    return false;
+  }
 }
 
 /**
@@ -206,20 +206,20 @@ function refuserDemande(int $booking_id): bool
  */
 function obtenirDemande(int $booking_id): ?array
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT b.*, a.id as ad_id
             FROM bookings b
             JOIN advertisements a ON b.advertisement_id = a.id
             WHERE b.id = ?
         ");
-        $stmt->execute([$booking_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la récupération de la demande: " . $e->getMessage());
-        return null;
-    }
+    $stmt->execute([$booking_id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération de la demande: " . $e->getMessage());
+    return null;
+  }
 }
 
 /**
@@ -229,9 +229,9 @@ function obtenirDemande(int $booking_id): ?array
  */
 function obtenirGardienAccepte(int $ad_id): ?array
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT 
                 b.id as booking_id,
                 b.sitter_id,
@@ -243,29 +243,29 @@ function obtenirGardienAccepte(int $ad_id): ?array
             WHERE b.advertisement_id = ? AND b.status = 'accepted'
             LIMIT 1
         ");
-        $stmt->execute([$ad_id]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: null;
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la récupération du gardien accepté: " . $e->getMessage());
-        return null;
-    }
+    $stmt->execute([$ad_id]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result ?: null;
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération du gardien accepté: " . $e->getMessage());
+    return null;
+  }
 }
 
 /**
  */
 function aDejaDemandeAnnonce(int $ad_id, int $sitter_id): bool
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT 1 FROM bookings 
             WHERE advertisement_id = ? AND sitter_id = ? LIMIT 1
         ");
-        $stmt->execute([$ad_id, $sitter_id]);
-        return (bool)$stmt->fetchColumn();
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la vérification de la demande: " . $e->getMessage());
-        return false;
-    }
+    $stmt->execute([$ad_id, $sitter_id]);
+    return (bool)$stmt->fetchColumn();
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la vérification de la demande: " . $e->getMessage());
+    return false;
+  }
 }

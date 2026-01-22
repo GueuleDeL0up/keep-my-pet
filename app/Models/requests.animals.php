@@ -159,7 +159,7 @@ function noterAnimal(int $animal_id, float $rating): bool
 {
   try {
     global $db;
-    
+
     // Validate animal exists
     $check = $db->prepare("SELECT note FROM animals WHERE id = ?");
     $check->execute([$animal_id]);
@@ -167,7 +167,7 @@ function noterAnimal(int $animal_id, float $rating): bool
     if (!$animal) {
       return false;
     }
-    
+
     // Update animal's note (average rating)
     $stmt = $db->prepare("
         UPDATE animals

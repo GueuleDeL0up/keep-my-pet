@@ -46,7 +46,7 @@ class AdvertisementsController
 
       // Filter out user's own advertisements
       if ($current_user_id) {
-        $annonces = array_filter($annonces, function($ad) use ($current_user_id) {
+        $annonces = array_filter($annonces, function ($ad) use ($current_user_id) {
           return $ad['user_id'] != $current_user_id;
         });
       }

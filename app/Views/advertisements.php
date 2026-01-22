@@ -32,21 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accept_ad'])) {
     header('Location: ' . $base_url . 'app/Views/log_in.php');
     exit;
   }
-  
+
   $ad_id = (int)($_POST['ad_id'] ?? 0);
   $sitter_id = $_SESSION['user_id'];
-  
+
   error_log("DEBUG: Booking attempt - ad_id=$ad_id, sitter_id=$sitter_id");
-  
+
   // Get the advertisement to find owner
   $ad = obtenirAnnoncePar($ad_id);
-  
+
   if ($ad) {
     error_log("DEBUG: Ad found - owner_id=" . $ad['user_id'] . ", sitter_id=$sitter_id");
   } else {
     error_log("DEBUG: Ad not found for id=$ad_id");
   }
-  
+
   if ($ad && $ad['user_id'] != $sitter_id) {
     $owner_id = $ad['user_id'];
     if (creerDemande($ad_id, $sitter_id, $owner_id)) {
@@ -283,7 +283,7 @@ include $base_dir . "/app/Views/Components/header.php";
   <script>
     // Pass current user ID to JavaScript for booking checks
     const currentUserId = <?php echo isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 'null'; ?>;
-    
+
     // Pass current language and locale for date formatting
     const currentLanguage = '<?php echo $current_language; ?>';
     const localeMap = {
@@ -292,7 +292,7 @@ include $base_dir . "/app/Views/Components/header.php";
       'es': 'es-ES'
     };
     const currentLocale = localeMap[currentLanguage] || 'fr-FR';
-    
+
     // Translations for JS
     const translations = {
       'home_sitting': '<?php echo t('home_sitting'); ?>',

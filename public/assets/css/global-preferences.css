@@ -43,10 +43,12 @@
 /* ===== FONT FAMILY VARIANTS ===== */
 
 /* Default font */
-[data-font="default"], 
+[data-font="default"],
 [data-font="default"] body,
 [data-font="default"] * {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif !important;
   font-size: inherit;
   letter-spacing: normal;
   line-height: 1.5;
@@ -164,7 +166,11 @@
 }
 
 [data-theme="dark"] .btn.primary {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-dark) 100%
+  );
   color: var(--bg);
   border-color: var(--accent);
 }
@@ -373,7 +379,11 @@
 }
 
 [data-theme="dark"] .avatar-circle {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%) !important;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-dark) 100%
+  ) !important;
 }
 
 /* ===== DARK MODE DETAILS CARDS ===== */
@@ -516,7 +526,7 @@
 }
 
 [data-theme="dark"] .service-icon {
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
 }
 
 /* ===== DARK MODE FOOTER ===== */
@@ -553,13 +563,21 @@
 }
 
 [data-theme="dark"] .btn-submit {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%) !important;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-dark) 100%
+  ) !important;
   color: var(--bg) !important;
   border-color: var(--accent) !important;
 }
 
 [data-theme="dark"] .btn-submit:hover {
-  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%) !important;
+  background: linear-gradient(
+    135deg,
+    var(--accent-dark) 0%,
+    var(--accent) 100%
+  ) !important;
 }
 
 /* ===== DARK MODE CONTACT MODERN (contact_modern.css) ===== */
@@ -742,7 +760,6 @@
   border-color: var(--accent) !important;
 }
 
-
 /* ===== DARK MODE TABLES ===== */
 [data-theme="dark"] table {
   background: var(--bg-secondary);
@@ -764,9 +781,14 @@
 
 /* ===== SMOOTH TRANSITIONS ===== */
 body {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 body * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }

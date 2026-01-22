@@ -14,9 +14,9 @@ require_once __DIR__ . '/connection_db.php';
  */
 function ensureReviewsTableExists(PDO $db): void
 {
-    try {
-        // Create the table if missing (idempotent)
-        $db->exec("CREATE TABLE IF NOT EXISTS `reviews` (
+  try {
+    // Create the table if missing (idempotent)
+    $db->exec("CREATE TABLE IF NOT EXISTS `reviews` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `advertisement_id` int(11) NOT NULL,
             `reviewer_id` int(11) NOT NULL COMMENT 'User who gives the rating',
@@ -35,61 +35,61 @@ function ensureReviewsTableExists(PDO $db): void
             CONSTRAINT `fk_reviews_reviewed_user` FOREIGN KEY (`reviewed_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
             CONSTRAINT `fk_reviews_animal` FOREIGN KEY (`reviewed_animal_id`) REFERENCES `animals` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-    } catch (PDOException $e) {
-        error_log('Erreur lors de la création automatique de la table reviews: ' . $e->getMessage());
-    }
+  } catch (PDOException $e) {
+    error_log('Erreur lors de la création automatique de la table reviews: ' . $e->getMessage());
+  }
 }
 
 function creerAvis(int $ad_id, int $reviewer_id, int $reviewed_user_id, int $rating, ?string $comment = null): bool
 {
-    try {
-        global $db;
+  try {
+    global $db;
 
-        // Ensure table exists
-        ensureReviewsTableExists($db);
-        
-        // Check if this specific user has already been reviewed for this ad by this reviewer
-        $check = $db->prepare("
+    // Ensure table exists
+    ensureReviewsTableExists($db);
+
+    // Check if this specific user has already been reviewed for this ad by this reviewer
+    $check = $db->prepare("
             SELECT id FROM reviews 
             WHERE advertisement_id = ? 
             AND reviewer_id = ? 
             AND reviewed_user_id = ?
             AND reviewed_animal_id IS NULL
         ");
-        $check->execute([$ad_id, $reviewer_id, $reviewed_user_id]);
-        if ($check->fetch()) {
-            error_log("DEBUG: Review already exists for ad=$ad_id, reviewer=$reviewer_id, reviewed_user=$reviewed_user_id");
-            return false; // Already reviewed this specific user
-        }
-        
-        $db->beginTransaction();
-        
-        // Insert review for user
-        $stmt = $db->prepare("
+    $check->execute([$ad_id, $reviewer_id, $reviewed_user_id]);
+    if ($check->fetch()) {
+      error_log("DEBUG: Review already exists for ad=$ad_id, reviewer=$reviewer_id, reviewed_user=$reviewed_user_id");
+      return false; // Already reviewed this specific user
+    }
+
+    $db->beginTransaction();
+
+    // Insert review for user
+    $stmt = $db->prepare("
             INSERT INTO reviews (advertisement_id, reviewer_id, reviewed_user_id, reviewed_animal_id, rating, comment) 
             VALUES (?, ?, ?, NULL, ?, ?)
         ");
-        $stmt->execute([$ad_id, $reviewer_id, $reviewed_user_id, $rating, $comment]);
-        
-        // Update user's rating and review count
-        $update = $db->prepare("
+    $stmt->execute([$ad_id, $reviewer_id, $reviewed_user_id, $rating, $comment]);
+
+    // Update user's rating and review count
+    $update = $db->prepare("
             UPDATE users u
             SET 
                 u.note = (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = u.id AND reviewed_animal_id IS NULL)
             WHERE u.id = ?
         ");
-        $update->execute([$reviewed_user_id]);
-        
-        error_log("DEBUG: Review created successfully for user $reviewed_user_id");
-        $db->commit();
-        return true;
-    } catch (PDOException $e) {
-        if (isset($db) && $db->inTransaction()) {
-            $db->rollBack();
-        }
-        error_log("Erreur lors de la création de l'avis: " . $e->getMessage());
-        return false;
+    $update->execute([$reviewed_user_id]);
+
+    error_log("DEBUG: Review created successfully for user $reviewed_user_id");
+    $db->commit();
+    return true;
+  } catch (PDOException $e) {
+    if (isset($db) && $db->inTransaction()) {
+      $db->rollBack();
     }
+    error_log("Erreur lors de la création de l'avis: " . $e->getMessage());
+    return false;
+  }
 }
 
 /**
@@ -100,15 +100,15 @@ function creerAvis(int $ad_id, int $reviewer_id, int $reviewed_user_id, int $rat
  */
 function aDejaNote(int $ad_id, int $reviewer_id): bool
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("SELECT 1 FROM reviews WHERE advertisement_id = ? AND reviewer_id = ? LIMIT 1");
-        $stmt->execute([$ad_id, $reviewer_id]);
-        return (bool)$stmt->fetchColumn();
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la vérification de l'avis: " . $e->getMessage());
-        return false;
-    }
+  try {
+    global $db;
+    $stmt = $db->prepare("SELECT 1 FROM reviews WHERE advertisement_id = ? AND reviewer_id = ? LIMIT 1");
+    $stmt->execute([$ad_id, $reviewer_id]);
+    return (bool)$stmt->fetchColumn();
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la vérification de l'avis: " . $e->getMessage());
+    return false;
+  }
 }
 
 /**
@@ -118,9 +118,9 @@ function aDejaNote(int $ad_id, int $reviewer_id): bool
  */
 function obtenirAvisUtilisateur(int $user_id): array
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT r.*, 
                    u.first_name as reviewer_first_name, 
                    u.last_name as reviewer_last_name,
@@ -131,12 +131,12 @@ function obtenirAvisUtilisateur(int $user_id): array
             WHERE r.reviewed_user_id = ?
             ORDER BY r.created_at DESC
         ");
-        $stmt->execute([$user_id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la récupération des avis: " . $e->getMessage());
-        return [];
-    }
+    $stmt->execute([$user_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération des avis: " . $e->getMessage());
+    return [];
+  }
 }
 
 /**
@@ -146,19 +146,19 @@ function obtenirAvisUtilisateur(int $user_id): array
  */
 function obtenirStatistiquesAvis(int $user_id): array
 {
-    try {
-        global $db;
-        $stmt = $db->prepare("
+  try {
+    global $db;
+    $stmt = $db->prepare("
             SELECT 
                 COALESCE(AVG(rating), 0) as average,
                 COUNT(*) as count
             FROM reviews
             WHERE reviewed_user_id = ?
         ");
-        $stmt->execute([$user_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erreur lors de la récupération des statistiques: " . $e->getMessage());
-        return ['average' => 0, 'count' => 0];
-    }
+    $stmt->execute([$user_id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération des statistiques: " . $e->getMessage());
+    return ['average' => 0, 'count' => 0];
+  }
 }
