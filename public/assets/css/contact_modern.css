@@ -217,8 +217,16 @@ footer {
 }
 
 .info-card i {
-  font-size: 40px;
+  font-size: 48px;
   color: #5fbbb7;
+  margin-bottom: 16px;
+  display: block;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.info-card .icon-wrapper {
+  font-size: 48px;
   margin-bottom: 16px;
   display: block;
 }

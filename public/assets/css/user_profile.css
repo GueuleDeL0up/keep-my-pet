@@ -8,7 +8,7 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #5fbbb7 0%, #57b1c8 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #dde5ed 100%);
   min-height: 100vh;
   padding: 20px 0;
 }
@@ -63,6 +63,11 @@ body {
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+}
+
+.profile-rating .rating-count {
+  color: #7a7a7a;
+  font-size: 14px;
 }
 
 .stars {
@@ -172,6 +177,71 @@ body {
   border-radius: 15px;
   margin-bottom: 30px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.review-item summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.review-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.review-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-stars i {
+  color: #fbbf24;
+}
+
+.review-stars i.empty {
+  color: #e2e8f0;
+}
+
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.review-ad {
+  color: #5fbbb7;
+  font-weight: 600;
+}
+
+.review-date {
+  color: #7a7a7a;
+}
+
+.review-body {
+  margin-top: 10px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.review-comment.muted {
+  color: #9aa0a6;
+  font-style: italic;
 }
 
 .profile-section h2 {

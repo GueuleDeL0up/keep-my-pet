@@ -33,6 +33,7 @@ function obtenirToutesAnnonces()
             FROM advertisements a
             LEFT JOIN users u ON a.user_id = u.id
             LEFT JOIN animals an ON a.animal_id = an.id
+            WHERE a.end_date >= CURDATE()
             ORDER BY a.start_date DESC
         ";
 
@@ -88,6 +89,16 @@ function obtenirAnnoncePar($id)
 }
 
 /**
+ * Get a specific advertisement by ID (alias)
+ * @param int $id Advertisement ID
+ * @return array|null Advertisement data or null if not found
+ */
+function obtenirAnnonceParId($id)
+{
+    return obtenirAnnoncePar($id);
+}
+
+/**
  * Get advertisements by user ID
  * @param int $user_id User ID
  * @return array List of advertisements
@@ -100,6 +111,7 @@ function obtenirAnnoncesParUtilisateur($user_id)
             SELECT 
                 a.id,
                 a.user_id,
+                a.animal_id,
                 a.title,
                 a.description,
                 a.city,
@@ -222,6 +234,38 @@ function supprimerAnnonce($id, $user_id)
 }
 
 /**
+ * Delete an advertisement (admin, no user check)
+ */
+function supprimerAnnonceAdmin(int $id): bool
+{
+    try {
+        global $db;
+        $query = "DELETE FROM advertisements WHERE id = ?";
+        $stmt = $db->prepare($query);
+        return $stmt->execute([$id]);
+    } catch (PDOException $e) {
+        error_log("Erreur lors de la suppression admin de l'annonce: " . $e->getMessage());
+        return false;
+    }
+}
+
+/**
+ * Delete all advertisements belonging to a user (admin cleanup)
+ */
+function supprimerAnnoncesParUtilisateur(int $user_id): bool
+{
+    try {
+        global $db;
+        $query = "DELETE FROM advertisements WHERE user_id = ?";
+        $stmt = $db->prepare($query);
+        return $stmt->execute([$user_id]);
+    } catch (PDOException $e) {
+        error_log("Erreur lors de la suppression des annonces de l'utilisateur: " . $e->getMessage());
+        return false;
+    }
+}
+
+/**
  * Search advertisements by filters
  * @param array $filters Search filters (type, city, animal_type, etc.)
  * @return array Filtered advertisements
@@ -250,7 +294,7 @@ function rechercherAnnonces($filters)
             FROM advertisements a
             LEFT JOIN users u ON a.user_id = u.id
             LEFT JOIN animals an ON a.animal_id = an.id
-            WHERE 1=1
+            WHERE a.end_date >= CURDATE()
         ";
 
         $params = [];

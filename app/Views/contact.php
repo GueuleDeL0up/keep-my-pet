@@ -2,6 +2,12 @@
 // Define the base
 $base_url = "/keep-my-pet/";  // For HTML links
 $base_dir = __DIR__ . "/../../";  // For PHP includes
+
+// Start session and load language
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+require_once $base_dir . 'app/Config/language.php';
 ?>
 
 <!DOCTYPE html>
@@ -22,60 +28,60 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
   <section class="contact-container">
     <!-- Header Section -->
     <div class="contact-header">
-      <h1>Contactez-nous</h1>
-      <p>Vous avez une question ou besoin d'assistance ? Notre équipe est là pour vous aider dans les plus brefs délais.</p>
+      <h1><?php echo t('contact_us'); ?></h1>
+      <p><?php echo t('contact_subtitle'); ?></p>
     </div>
 
     <!-- Content Layout -->
     <div class="contact-content">
       <div class="contact-form-side">
-        <h2>Envoyez-nous un message</h2>
+        <h2><?php echo t('send_message'); ?></h2>
 
         <form action="send_contact.php" method="POST" class="keepmypet-form">
           <div class="form-row">
             <div class="form-group">
-              <label for="nom">Nom</label>
-              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+              <label for="nom"><?php echo t('name'); ?></label>
+              <input type="text" id="nom" name="nom" placeholder="<?php echo t('your_name'); ?>" required>
             </div>
             <div class="form-group">
-              <label for="prenom">Prénom</label>
-              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+              <label for="prenom"><?php echo t('firstname'); ?></label>
+              <input type="text" id="prenom" name="prenom" placeholder="<?php echo t('your_firstname'); ?>" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email"><?php echo t('email'); ?></label>
             <input type="email" id="email" name="email" placeholder="exemple@mail.com" required>
           </div>
 
           <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Comment pouvons-nous vous aider ?" required></textarea>
+            <label for="message"><?php echo t('message'); ?></label>
+            <textarea id="message" name="message" rows="5" placeholder="<?php echo t('how_can_help'); ?>" required></textarea>
           </div>
 
-          <button type="submit" class="btn-submit">Envoyer</button>
+          <button type="submit" class="btn-submit"><?php echo t('send'); ?></button>
         </form>
       </div>
-      <img src="<?php echo $base_url; ?>/public/assets/images/question_cat.png" alt="Contact KeepMyPet">
+      <img src="<?php echo $base_url; ?>/public/assets/images/question_cat.png" alt="<?php echo t('contact'); ?> KeepMyPet">
     </div>
     </div>
 
     <!-- Info Cards -->
     <div class="contact-info">
       <div class="info-card">
-        <i class="fas fa-envelope"></i>
-        <h3>Email</h3>
+        <div class="icon-wrapper">✉️</div>
+        <h3><?php echo t('email'); ?></h3>
         <p>contact@keepmypet.fr</p>
       </div>
       <div class="info-card">
-        <i class="fas fa-phone"></i>
-        <h3>Téléphone</h3>
+        <div class="icon-wrapper">📞</div>
+        <h3><?php echo t('phone'); ?></h3>
         <p>+33 (0)1 23 45 67 89</p>
       </div>
       <div class="info-card">
-        <i class="fas fa-clock"></i>
-        <h3>Horaires</h3>
-        <p>Lun-Ven: 9h-18h<br>Sam: 10h-14h</p>
+        <div class="icon-wrapper">⏰</div>
+        <h3><?php echo t('hours'); ?></h3>
+        <p><?php echo t('hours_detail'); ?></p>
       </div>
     </div>
   </section>

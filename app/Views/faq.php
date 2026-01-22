@@ -2,14 +2,26 @@
 // Define the base
 $base_url = "/keep-my-pet/";  // For HTML links
 $base_dir = __DIR__ . "/../../";  // For PHP includes
+
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+// Load language system
+require_once $base_dir . 'app/Config/language.php';
+$current_language = getCurrentLanguage();
+
+// Load FAQ from database
+require_once $base_dir . '/app/Models/requests.faq.php';
+$faqs = obtenirToutesFAQ();
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo htmlspecialchars($current_language); ?>">
 
 <head>
   <meta charset="UTF-8">
-  <title>FAQ</title>
+  <title><?php echo t('faq_title'); ?></title>
   <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/faq.css">
 </head>
 
@@ -21,36 +33,22 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
 
   <section class="faq-container">
     <div class="faq-content">
-      <h2>Foire aux questions (FAQ)</h2>
-      <p>Retrouvez ici les réponses aux questions les plus fréquentes de nos utilisateurs.</p>
+      <h2><?php echo t('faq_title'); ?></h2>
+      <p><?php echo t('faq_subtitle'); ?></p>
 
       <div class="faq-list">
-        <details class="faq-item">
-          <summary>Comment sont sélectionnés les gardiens ?</summary>
-          <div class="faq-answer">
-            <p>Tous nos gardiens passent par un processus de vérification rigoureux comprenant l'identité, l'expérience avec les animaux et les avis des anciens propriétaires.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Quels types d'animaux sont acceptés ?</summary>
-          <div class="faq-answer">
-            <p>KeepMyPet accueille principalement les chiens et les chats, mais vous pouvez également trouver des gardiens spécialisés pour les rongeurs, oiseaux ou nouveaux animaux de compagnie (NAC).</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Que se passe-t-il en cas d'urgence ?</summary>
-          <div class="faq-answer">
-            <p>Le gardien dispose de vos coordonnées d'urgence et de celles de votre vétérinaire. Notre assistance est également disponible 7j/7 pour vous accompagner en cas de besoin.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Comment se déroule le paiement ?</summary>
-          <div class="faq-answer">
-            <p>Le paiement s'effectue de manière sécurisée directement sur la plateforme lors de la réservation. Le gardien est rémunéré une fois la prestation terminée.</p>
-          </div>
+        <?php foreach ($faqs as $faq): ?>
+          <details class="faq-item">
+            <summary><?php echo htmlspecialchars($faq['question'], ENT_QUOTES, 'UTF-8'); ?></summary>
+            <div class="faq-answer">
+              <p><?php echo nl2br(htmlspecialchars($faq['reponse'], ENT_QUOTES, 'UTF-8')); ?></p>
+            </div>
+          </details>
+        <?php endforeach; ?>
+        
+        <?php if (empty($faqs)): ?>
+          <p style="text-align: center; color: #999; padding: 20px;"><?php echo t('faq_empty'); ?></p>
+        <?php endif; ?>
       </div>
     </div>
     </div>

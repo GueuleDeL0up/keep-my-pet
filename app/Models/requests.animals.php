@@ -148,3 +148,35 @@ function supprimerAnimal($id)
     return false;
   }
 }
+
+/**
+ * Add a rating/review to an animal
+ * @param int $animal_id Animal ID
+ * @param float $rating Rating (1-5)
+ * @return bool
+ */
+function noterAnimal(int $animal_id, float $rating): bool
+{
+  try {
+    global $db;
+    
+    // Validate animal exists
+    $check = $db->prepare("SELECT note FROM animals WHERE id = ?");
+    $check->execute([$animal_id]);
+    $animal = $check->fetch(PDO::FETCH_ASSOC);
+    if (!$animal) {
+      return false;
+    }
+    
+    // Update animal's note (average rating)
+    $stmt = $db->prepare("
+        UPDATE animals
+        SET note = (SELECT AVG(rating) FROM reviews WHERE reviewed_animal_id = ?)
+        WHERE id = ?
+    ");
+    return $stmt->execute([$animal_id, $animal_id]);
+  } catch (PDOException $e) {
+    error_log("Erreur lors de la notation de l'animal: " . $e->getMessage());
+    return false;
+  }
+}

@@ -5,6 +5,10 @@ $base_dir = __DIR__ . "/../../";
 
 session_start();
 
+// Load language system
+require_once $base_dir . 'app/Config/language.php';
+$current_lang = getCurrentLanguage();
+
 $errors = [];
 $success = false;
 
@@ -20,15 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Validation
   if (empty($first_name) || empty($last_name) || empty($email) || empty($phone) || empty($address) || empty($password)) {
-    $errors[] = 'Tous les champs sont requis.';
+    $errors[] = t('error_all_fields_required');
   }
 
   if (strlen($password) < 6) {
-    $errors[] = 'Le mot de passe doit contenir au moins 6 caractères.';
+    $errors[] = t('error_password_min_length');
   }
 
   if ($password !== $password_confirm) {
-    $errors[] = 'Les mots de passe ne correspondent pas.';
+    $errors[] = t('error_passwords_mismatch');
   }
 
   if (empty($errors)) {
@@ -43,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $existing = $check_stmt->fetch(PDO::FETCH_ASSOC);
 
       if ($existing) {
-        $errors[] = 'Cet email est déjà utilisé.';
+        $errors[] = t('error_email_exists');
       } else {
         // Create user
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -65,12 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo $current_lang; ?>">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KeepMyPet - S'inscrire</title>
+  <title>KeepMyPet - <?php echo t('signup_title'); ?></title>
   <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/log_in.css">
   <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/Components/log_in.css">
 </head>
@@ -85,12 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Form Container -->
     <div class="form-container">
-      <h1>S'inscrire</h1>
-      <p class="subtitle">Créez votre compte KeepMyPet</p>
+      <h1><?php echo t('signup_title'); ?></h1>
+      <p class="subtitle"><?php echo t('signup_subtitle'); ?></p>
 
       <?php if ($success): ?>
         <div class="success-box" style="background-color: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 15px; margin-bottom: 25px;">
-          <p style="color: #15803d; font-size: 14px;">Inscription réussie ! Redirection vers la connexion...</p>
+          <p style="color: #15803d; font-size: 14px;"><?php echo t('signup_success'); ?></p>
         </div>
       <?php endif; ?>
 
@@ -105,88 +109,88 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php if (!$success): ?>
         <form method="POST" action="" class="login-form">
           <div class="form-group">
-            <label for="first_name">Prénom</label>
+            <label for="first_name"><?php echo t('first_name'); ?></label>
             <input
               type="text"
               id="first_name"
               name="first_name"
-              placeholder="Votre prénom"
+              placeholder="<?php echo t('first_name_placeholder'); ?>"
               value="<?php echo htmlspecialchars($_POST['first_name'] ?? ''); ?>"
               required>
           </div>
 
           <div class="form-group">
-            <label for="last_name">Nom</label>
+            <label for="last_name"><?php echo t('last_name'); ?></label>
             <input
               type="text"
               id="last_name"
               name="last_name"
-              placeholder="Votre nom"
+              placeholder="<?php echo t('last_name_placeholder'); ?>"
               value="<?php echo htmlspecialchars($_POST['last_name'] ?? ''); ?>"
               required>
           </div>
 
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email"><?php echo t('email'); ?></label>
             <input
               type="email"
               id="email"
               name="email"
-              placeholder="votre@email.com"
+              placeholder="<?php echo t('email_placeholder'); ?>"
               value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
               required>
           </div>
 
           <div class="form-group">
-            <label for="phone">Numéro de téléphone</label>
+            <label for="phone"><?php echo t('phone_number'); ?></label>
             <input
               type="tel"
               id="phone"
               name="phone"
-              placeholder="+33 6 12 34 56 78"
+              placeholder="<?php echo t('phone_placeholder'); ?>"
               value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>"
               required>
           </div>
 
           <div class="form-group">
-            <label for="address">Adresse</label>
+            <label for="address"><?php echo t('address'); ?></label>
             <input
               type="text"
               id="address"
               name="address"
-              placeholder="123 Rue de la Paix, 75000 Paris"
+              placeholder="<?php echo t('address_placeholder'); ?>"
               value="<?php echo htmlspecialchars($_POST['address'] ?? ''); ?>"
               required>
           </div>
 
           <div class="form-group">
-            <label for="password">Mot de passe</label>
+            <label for="password"><?php echo t('password'); ?></label>
             <input
               type="password"
               id="password"
               name="password"
-              placeholder="Minimum 6 caractères"
+              placeholder="<?php echo t('password_min_placeholder'); ?>"
               required>
           </div>
 
           <div class="form-group">
-            <label for="password_confirm">Confirmer le mot de passe</label>
+            <label for="password_confirm"><?php echo t('password_confirm'); ?></label>
             <input
               type="password"
               id="password_confirm"
               name="password_confirm"
-              placeholder="Confirmez votre mot de passe"
+              placeholder="<?php echo t('password_confirm_placeholder'); ?>"
               required>
           </div>
 
-          <button type="submit" class="btn-login">S'inscrire</button>
+          <button type="submit" class="btn-login"><?php echo t('signup_button'); ?></button>
         </form>
       <?php endif; ?>
 
       <div class="form-links">
         <p>
-          Vous avez déjà un compte ?
-          <a href="<?php echo $base_url; ?>app/Views/log_in.php">Se connecter</a>
+          <?php echo t('already_registered'); ?>
+          <a href="<?php echo $base_url; ?>app/Views/log_in.php"><?php echo t('login_link'); ?></a>
         </p>
       </div>
     </div>

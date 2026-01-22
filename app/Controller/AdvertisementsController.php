@@ -13,6 +13,11 @@ class AdvertisementsController
   public static function afficherAnnonces()
   {
     try {
+      // Start session if not started
+      if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+      }
+
       // Get search filters from GET parameters
       $filters = [
         'search' => $_GET['search'] ?? '',
@@ -29,11 +34,21 @@ class AdvertisementsController
         !empty($filters['min_price']) ||
         !empty($filters['max_price']);
 
+      // Get current user ID if logged in
+      $current_user_id = $_SESSION['user_id'] ?? null;
+
       // Get advertisements
       if ($hasFilters) {
         $annonces = rechercherAnnonces($filters);
       } else {
         $annonces = obtenirToutesAnnonces();
+      }
+
+      // Filter out user's own advertisements
+      if ($current_user_id) {
+        $annonces = array_filter($annonces, function($ad) use ($current_user_id) {
+          return $ad['user_id'] != $current_user_id;
+        });
       }
 
       return [

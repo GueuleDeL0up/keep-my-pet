@@ -4,7 +4,7 @@ $base_url = "/keep-my-pet/";  // For HTML links
 $base_dir = __DIR__ . "/../../";  // For PHP includes
 
 // on récupère les requêtes génériques
-include($base_dir . "app/Models/requests.basics.php");
+require_once($base_dir . "app/Models/requests.basics.php");
 
 //on définit le nom de la table
 $table = "users";
@@ -62,6 +62,20 @@ function trouveParId(PDO $bdd, int $id): array
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll();
+}
+
+/**
+ * Récupère un utilisateur par son ID (retourne un seul utilisateur ou false)
+ * @param int $id
+ * @return array|false
+ */
+function obtenirUtilisateurParId(int $id)
+{
+    global $db;
+    $stmt = $db->prepare('SELECT u.*, COUNT(DISTINCT r.id) as review_count FROM users u LEFT JOIN reviews r ON u.id = r.reviewed_user_id WHERE u.id = :id GROUP BY u.id');
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -191,5 +205,28 @@ function updatePassword(PDO $bdd, int $id, string $hash): bool
     $stmt->bindParam(':password', $hash, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
+    return $stmt->execute();
+}
+
+/**
+ * Recherche des utilisateurs par email, prénom ou nom
+ */
+function rechercherUtilisateurs(PDO $bdd, string $term): array
+{
+    $like = '%' . $term . '%';
+    $sql = 'SELECT * FROM users WHERE email LIKE :like OR first_name LIKE :like OR last_name LIKE :like ORDER BY id DESC';
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':like', $like, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+/**
+ * Supprime un utilisateur par ID
+ */
+function supprimerUtilisateur(PDO $bdd, int $id): bool
+{
+    $stmt = $bdd->prepare('DELETE FROM users WHERE id = :id');
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     return $stmt->execute();
 }

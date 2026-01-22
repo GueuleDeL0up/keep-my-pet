@@ -69,7 +69,9 @@ CREATE TABLE `cgu` (
   `content` longtext NOT NULL,
   `version` varchar(10) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `language` varchar(2) NOT NULL DEFAULT 'fr',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  KEY `idx_language` (`language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -83,7 +85,9 @@ CREATE TABLE `faqs` (
   `question` text NOT NULL,
   `answer` text NOT NULL,
   `category` varchar(50) NOT NULL,
-  `sort_order` int(11) NOT NULL
+  `sort_order` int(11) NOT NULL,
+  `language` varchar(2) NOT NULL DEFAULT 'fr',
+  KEY `idx_language` (`language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -96,7 +100,9 @@ CREATE TABLE `legal_notice` (
   `id` int(11) NOT NULL,
   `section_title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `language` varchar(2) NOT NULL DEFAULT 'fr',
+  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  KEY `idx_language` (`language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -144,6 +150,8 @@ CREATE TABLE `users` (
   `note` decimal(3,2) NOT NULL,
   `theme` enum('light','dark') NOT NULL,
   `language` enum('fr','en','es') NOT NULL,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_token_expiry` datetime DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -287,6 +295,58 @@ ALTER TABLE `order_history`
 ALTER TABLE `pet_owners`
   ADD CONSTRAINT `pet_owners_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `pet_owners_ibfk_2` FOREIGN KEY (`animal_id`) REFERENCES `animals` (`id`) ON DELETE CASCADE;
+
+--
+-- Structure de la table `reviews`
+--
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `advertisement_id` int(11) NOT NULL,
+  `reviewer_id` int(11) NOT NULL COMMENT 'User who gives the rating',
+  `reviewed_user_id` int(11) DEFAULT NULL COMMENT 'User who receives the rating (pet sitter/owner)',
+  `reviewed_animal_id` int(11) DEFAULT NULL COMMENT 'Animal who receives the rating',
+  `rating` int(1) NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  `comment` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `reviewer_id` (`reviewer_id`),
+  KEY `reviewed_user_id` (`reviewed_user_id`),
+  KEY `reviewed_animal_id` (`reviewed_animal_id`),
+  KEY `advertisement_id` (`advertisement_id`),
+  CONSTRAINT `fk_reviews_advertisement` FOREIGN KEY (`advertisement_id`) REFERENCES `advertisements` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_reviews_reviewer` FOREIGN KEY (`reviewer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_reviews_reviewed_user` FOREIGN KEY (`reviewed_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_reviews_animal` FOREIGN KEY (`reviewed_animal_id`) REFERENCES `animals` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Index pour la table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`advertisement_id`) REFERENCES `advertisements` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`reviewer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Structure de la table `bookings` (demandes de gardiennage)
+--
+CREATE TABLE IF NOT EXISTS `bookings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `advertisement_id` int(11) NOT NULL,
+  `sitter_id` int(11) NOT NULL COMMENT 'User who wants to sit (gardien)',
+  `owner_id` int(11) NOT NULL COMMENT 'User who posted the ad (propriétaire)',
+  `status` enum('pending','accepted','rejected') NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `responded_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_booking` (`advertisement_id`, `sitter_id`),
+  KEY `sitter_id` (`sitter_id`),
+  KEY `owner_id` (`owner_id`),
+  KEY `advertisement_id` (`advertisement_id`),
+  CONSTRAINT `fk_bookings_advertisement` FOREIGN KEY (`advertisement_id`) REFERENCES `advertisements` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_bookings_sitter` FOREIGN KEY (`sitter_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_bookings_owner` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

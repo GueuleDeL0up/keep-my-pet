@@ -2,14 +2,22 @@
 // Define the base
 $base_url = "/keep-my-pet/";  // For HTML links
 $base_dir = __DIR__ . "/../../";  // For PHP includes
+
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+// Load language system
+require_once $base_dir . 'app/Config/language.php';
+$current_language = getCurrentLanguage();
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo htmlspecialchars($current_language); ?>">
 
 <head>
   <meta charset="UTF-8">
-  <title>À propos</title>
+  <title><?php echo t('about_g2cidees_title'); ?></title>
   <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/about_g2cidees.css">
 </head>
 
@@ -22,27 +30,20 @@ $base_dir = __DIR__ . "/../../";  // For PHP includes
   <section class="about-container">
     <div class="about-content">
       <div class="about-text">
-        <h2>À propos de G2Cidées</h2>
-        <p>
-          G2Cidées est une équipe de développeurs passionnés, née de l'envie de créer des solutions
-          numériques utiles et intuitives. À l'origine du projet <strong>KeepMyPet</strong>,
-          notre mission est de mettre la technologie au service du bien-être animal.
-        </p>
-        <p>
-          Spécialisés dans le développement web moderne, nous croyons que chaque ligne de code
-          doit contribuer à simplifier la vie des utilisateurs, qu'ils soient à deux ou à quatre pattes.
-        </p>
+        <h2><?php echo t('about_g2cidees_title'); ?></h2>
+        <p><?php echo t('about_g2cidees_text1'); ?></p>
+        <p><?php echo t('about_g2cidees_text2'); ?></p>
 
         <div class="team-values">
-          <div class="value-tag">Passion</div>
-          <div class="value-tag">Innovation</div>
-          <div class="value-tag">Proximité</div>
+          <div class="value-tag"><?php echo t('team_value_passion'); ?></div>
+          <div class="value-tag"><?php echo t('team_value_innovation'); ?></div>
+          <div class="value-tag"><?php echo t('team_value_proximity'); ?></div>
         </div>
       </div>
 
       <div class="about-image">
         <div class="team-photo-wrapper">
-          <img src="<?php echo $base_url; ?>/public/assets/images/G2Cidees_Logo.png" alt="Équipe G2Cidées">
+          <img src="<?php echo $base_url; ?>/public/assets/images/G2Cidees_Logo.png" alt="<?php echo t('team_photo_alt'); ?>">
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ $base_url = "/keep-my-pet/";  // For HTML links
 $base_dir = __DIR__ . "/../../";  // For PHP includes
 
 // Appel du fichier déclarant PDO
-include($base_dir . "app/Models/connection_db.php");
+require_once($base_dir . "app/Models/connection_db.php");
 
 /**
  * Récupère tous les éléments d'une table

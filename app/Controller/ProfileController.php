@@ -22,6 +22,7 @@ class ProfileController
 
     // Load current user data
     include_once $base_dir . 'app/Models/requests.users.php';
+    include_once $base_dir . 'app/Models/requests.bookings.php';
     $existing = trouveParId($db, $userId);
     if (count($existing) === 0) {
       // user not found
@@ -30,6 +31,9 @@ class ProfileController
     }
     $user = $existing[0];
     $result['user'] = $user;
+
+    // History of finished bookings (owner or sitter)
+    $result['history'] = obtenirGardesTermineesUtilisateur($userId);
 
     // POST handling
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

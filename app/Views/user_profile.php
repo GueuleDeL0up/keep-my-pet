@@ -8,8 +8,12 @@ if (session_status() === PHP_SESSION_NONE) {
 $base_url = "/keep-my-pet/";
 $base_dir = __DIR__ . "/../../";
 
+// Load language system
+require_once $base_dir . 'app/Config/language.php';
+
 // Include database connection and models
 require_once $base_dir . "app/Models/connection_db.php";
+require_once $base_dir . "app/Models/requests.reviews.php";
 
 // Get user ID from URL
 $user_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -21,6 +25,7 @@ error_log("user_id from URL: " . $user_id);
 $user = null;
 $animals = [];
 $advertisements = [];
+$reviews = [];
 
 if ($user_id > 0) {
   // Fetch user information
@@ -41,6 +46,9 @@ if ($user_id > 0) {
       $stmt = $db->prepare("SELECT id, title, description, type, city, price, start_date FROM advertisements WHERE user_id = ? ORDER BY start_date DESC LIMIT 5");
       $stmt->execute([$user_id]);
       $advertisements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      // Fetch reviews about this user
+      $reviews = obtenirAvisUtilisateur($user_id);
 
       error_log("Animals: " . count($animals) . ", Ads: " . count($advertisements));
     }
@@ -102,6 +110,7 @@ include $base_dir . "/app/Views/Components/header.php";
               ?>
             </div>
             <span class="rating-text"><?php echo number_format($user['note'], 2); ?>/5</span>
+            <span class="rating-count">(<?php echo count($reviews); ?> avis)</span>
           </div>
 
           <p class="member-since">
@@ -123,6 +132,44 @@ include $base_dir . "/app/Views/Components/header.php";
       </div>
 
       <!-- Profile Details -->
+      <div class="profile-section">
+        <h2><i class="fas fa-star"></i> Avis reçus</h2>
+        <?php if (empty($reviews)): ?>
+          <p>Aucun avis pour le moment.</p>
+        <?php else: ?>
+          <div class="reviews-list">
+            <?php foreach ($reviews as $review): ?>
+              <details class="review-item">
+                <summary>
+                  <div class="review-summary">
+                    <div class="review-stars">
+                      <?php
+                        $r = (int)$review['rating'];
+                        for ($i = 1; $i <= 5; $i++) {
+                          echo $i <= $r ? '<i class="fas fa-star filled"></i>' : '<i class="fas fa-star empty"></i>';
+                        }
+                      ?>
+                    </div>
+                    <div class="review-meta">
+                      <strong><?php echo htmlspecialchars($review['reviewer_first_name'] . ' ' . $review['reviewer_last_name']); ?></strong>
+                      <span class="review-ad">Sur: <?php echo htmlspecialchars($review['ad_title']); ?></span>
+                      <span class="review-date"><?php echo date('d/m/Y', strtotime($review['created_at'])); ?></span>
+                    </div>
+                  </div>
+                </summary>
+                <div class="review-body">
+                  <?php if (!empty($review['comment'])): ?>
+                    <p class="review-comment"><?php echo nl2br(htmlspecialchars($review['comment'])); ?></p>
+                  <?php else: ?>
+                    <p class="review-comment muted">Pas de commentaire</p>
+                  <?php endif; ?>
+                </div>
+              </details>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+      </div>
+
       <div class="profile-details">
         <div class="detail-card">
           <h3><i class="fas fa-map-marker-alt"></i> Localisation</h3>
@@ -180,7 +227,7 @@ include $base_dir . "/app/Views/Components/header.php";
                 <div class="ad-item-header">
                   <h3><?php echo htmlspecialchars($ad['title']); ?></h3>
                   <span class="ad-type <?php echo $ad['type']; ?>">
-                    <?php echo $ad['type'] === 'gardiennage' ? 'Gardiennage' : 'Promenade'; ?>
+                    <?php echo $ad['type'] === 'gardiennage' ? t('home_sitting') : t('walking'); ?>
                   </span>
                 </div>
                 <p class="ad-description"><?php echo htmlspecialchars(substr($ad['description'], 0, 100)); ?>...</p>

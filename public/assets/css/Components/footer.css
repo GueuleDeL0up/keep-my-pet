@@ -1,83 +1,65 @@
 /* --- STYLE --- */
 
 footer {
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  background: #e0f2f0;
+  padding: 16px 0;
 }
 
-/* footer */
+footer .footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
 footer h3 {
-  margin: 10px 0;
+  margin: 8px 0;
   color: #1e4b60;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 footer p,
 footer a {
-  margin: 5px 0;
-  font-size: 14px;
+  margin: 4px 0;
+  font-size: 13px;
   color: #1e4b60;
   text-decoration: none;
+  display: inline-block;
 }
 
-/* logo-container */
-footer .logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+footer a:hover {
+  text-decoration: underline;
 }
 
 footer .logo-container img {
-  width: 80px;
+  width: 70px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-/* keepmypet-container */
-footer .keepmypet-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-}
-
-/* g2cidees-container */
-footer .g2cidees-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-}
-
-/* copyright-container */
+footer .keepmypet-container,
+footer .g2cidees-container,
 footer .copyright-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  gap: 2px;
 }
 
-/* --- RESPONSIVE --- */
-
-/* Mobile AND Tablet (< 1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 640px) {
   footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-    padding: 10px 0;
-    background: #e0f2f0;
+    padding: 14px 0;
   }
-}
-
-/* Desktop (> 1024px) */
-@media (min-width: 1025px) {
-  footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    text-align: center;
-    padding: 10px 0;
-    background: #e0f2f0;
+  footer .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }

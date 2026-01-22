@@ -178,16 +178,28 @@ select.filter-pill:focus {
   color: #333;
 }
 
+[data-theme="dark"] .ad-card-title {
+  color: #ffffff !important;
+}
+
 .ad-card-meta {
   font-size: 0.85rem;
   color: #888;
   margin-bottom: 5px;
 }
 
+[data-theme="dark"] .ad-card-meta {
+  color: #e0e7ff !important;
+}
+
 .ad-card-price {
   font-weight: bold;
   color: #5fbbb7;
   font-size: 1.1rem;
+}
+
+[data-theme="dark"] .ad-card-price {
+  color: #06b6d4 !important;
 }
 
 /* No Results */
@@ -251,9 +263,18 @@ select.filter-pill:focus {
   padding-bottom: 8px;
 }
 
+[data-theme="dark"] .detail-section h3 {
+  color: #ffffff !important;
+  border-bottom-color: #06b6d4 !important;
+}
+
 .detail-section p {
   color: #666;
   line-height: 1.8;
+}
+
+[data-theme="dark"] .detail-section p {
+  color: #ffffff !important;
 }
 
 .detail-grid {
@@ -270,6 +291,11 @@ select.filter-pill:focus {
   border-left: 3px solid #5fbbb7;
 }
 
+[data-theme="dark"] .detail-item {
+  background-color: #0f172a !important;
+  border-left-color: #06b6d4 !important;
+}
+
 .detail-item-label {
   font-size: 0.85rem;
   color: #888;
@@ -277,10 +303,18 @@ select.filter-pill:focus {
   margin-bottom: 5px;
 }
 
+[data-theme="dark"] .detail-item-label {
+  color: #e0e7ff !important;
+}
+
 .detail-item-value {
   font-size: 1.1rem;
   font-weight: 600;
   color: #333;
+}
+
+[data-theme="dark"] .detail-item-value {
+  color: #ffffff !important;
 }
 
 /* User Info */
@@ -323,9 +357,17 @@ select.filter-pill:focus {
   margin-bottom: 5px;
 }
 
+[data-theme="dark"] .user-details h4 {
+  color: #ffffff !important;
+}
+
 .user-details p {
   color: #888;
   font-size: 0.9rem;
+}
+
+[data-theme="dark"] .user-details p {
+  color: #e0e7ff !important;
 }
 
 .user-contact {

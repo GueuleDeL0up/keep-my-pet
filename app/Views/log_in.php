@@ -5,6 +5,10 @@ $base_dir = __DIR__ . "/../../";
 
 session_start();
 
+// Load language system
+require_once $base_dir . 'app/Config/language.php';
+$current_lang = getCurrentLanguage();
+
 $errors = [];
 
 // Handle login form submission
@@ -13,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = $_POST['password'] ?? '';
 
   if (empty($email) || empty($password)) {
-    $errors[] = 'Email et mot de passe requis.';
+    $errors[] = t('error_email_password_required');
   } else {
     try {
       // Connect to database
@@ -24,39 +28,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $users = trouveParEmail($db, $email);
 
       if (empty($users)) {
-        $errors[] = 'Identifiants invalides.';
+        $errors[] = t('error_invalid_credentials');
       } else {
         $user = $users[0];
 
         // Verify password
         if (!password_verify($password, $user['password'])) {
-          $errors[] = 'Identifiants invalides.';
+          $errors[] = t('error_invalid_credentials');
         } else {
           // Login success
           $_SESSION['user_id'] = $user['id'];
           $_SESSION['user_email'] = $user['email'];
           $_SESSION['user_first_name'] = $user['first_name'];
           $_SESSION['user_last_name'] = $user['last_name'];
+          $_SESSION['is_admin'] = !empty($user['is_admin']) ? 1 : 0;
 
-          // Redirect to home
+          // Redirect admin to admin dashboard
+          if (!empty($user['is_admin'])) {
+            header('Location: ' . $base_url . 'app/Views/admin.php');
+            exit;
+          }
+
+          // Redirect regular users to home
           header('Location: ' . $base_url . 'app/Views/home.php');
           exit;
         }
       }
     } catch (Exception $e) {
-      $errors[] = 'Erreur serveur lors de la connexion.';
+      $errors[] = t('error_server');
     }
   }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo $current_lang; ?>">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KeepMyPet - Se connecter</title>
+  <title>KeepMyPet - <?php echo t('login_title'); ?></title>
   <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/log_in.css">
   <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/Components/log_in.css">
 </head>
@@ -71,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Form Container -->
     <div class="form-container">
-      <h1>Se connecter</h1>
-      <p class="subtitle">Bienvenue sur KeepMyPet</p>
+      <h1><?php echo t('login_title'); ?></h1>
+      <p class="subtitle"><?php echo t('login_subtitle'); ?></p>
 
       <?php if (!empty($errors)): ?>
         <div class="errors-box">
@@ -84,36 +95,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <form method="POST" action="" class="login-form">
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email"><?php echo t('email'); ?></label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="votre@email.com"
+            placeholder="<?php echo t('email_placeholder'); ?>"
             value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
             required>
         </div>
 
         <div class="form-group">
-          <label for="password">Mot de passe</label>
+          <label for="password"><?php echo t('password'); ?></label>
           <input
             type="password"
             id="password"
             name="password"
-            placeholder="••••••••"
+            placeholder="<?php echo t('password_placeholder'); ?>"
             required>
         </div>
 
-        <button type="submit" class="btn-login">Se connecter</button>
+        <button type="submit" class="btn-login"><?php echo t('login_button'); ?></button>
       </form>
 
       <div class="form-links">
         <p>
-          <a href="<?php echo $base_url; ?>app/Views/forgotten_password.php">Mot de passe oublié ?</a>
+          <a href="<?php echo $base_url; ?>app/Views/forgotten_password.php"><?php echo t('forgot_password'); ?></a>
         </p>
         <p>
-          Pas encore inscrit ?
-          <a href="<?php echo $base_url; ?>app/Views/sign_up.php">S'inscrire</a>
+          <?php echo t('not_registered'); ?>
+          <a href="<?php echo $base_url; ?>app/Views/sign_up.php"><?php echo t('signup_link'); ?></a>
         </p>
       </div>
     </div>
