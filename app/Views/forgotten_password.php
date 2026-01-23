@@ -75,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           $success = true;
 
-          // Redirect to debug emails page after 2 seconds
-          header('refresh:2; url=' . $base_url . 'app/Views/debug_emails.php');
+          // Redirect to debug emails viewer (latest email) after sending
+          header('refresh:2; url=' . $base_url . 'app/Views/debug_emails.php?latest=1#preview');
         } catch (Exception $e) {
           $errors[] = t('error_server');
         }
