@@ -1,58 +1,219 @@
 <?php
 // Define the base
-$base_url = "/keep-my-pet/";  // For HTML links
-$base_dir = __DIR__ . "/../../";  // For PHP includes
+$base_url = "/keep-my-pet/";
+$base_dir = __DIR__ . "/../../";
+
+session_start();
+
+// Load language system
+require_once $base_dir . 'app/Config/language.php';
+$current_lang = getCurrentLanguage();
+
+$errors = [];
+$success = false;
+
+// Handle signup form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $first_name = trim($_POST['first_name'] ?? '');
+  $last_name = trim($_POST['last_name'] ?? '');
+  $email = trim($_POST['email'] ?? '');
+  $phone = trim($_POST['phone'] ?? '');
+  $address = trim($_POST['address'] ?? '');
+  $password = $_POST['password'] ?? '';
+  $password_confirm = $_POST['password_confirm'] ?? '';
+
+  // Validation
+  if (empty($first_name) || empty($last_name) || empty($email) || empty($phone) || empty($address) || empty($password)) {
+    $errors[] = t('error_all_fields_required');
+  }
+
+  if (strlen($password) < 6) {
+    $errors[] = t('error_password_min_length');
+  }
+
+  if ($password !== $password_confirm) {
+    $errors[] = t('error_passwords_mismatch');
+  }
+
+  if (empty($errors)) {
+    try {
+      // Connect to database
+      include $base_dir . 'app/Models/connection_db.php';
+
+      // Check if email already exists - requête directe
+      $check_query = "SELECT id FROM users WHERE email = ?";
+      $check_stmt = $db->prepare($check_query);
+      $check_stmt->execute([$email]);
+      $existing = $check_stmt->fetch(PDO::FETCH_ASSOC);
+
+      if ($existing) {
+        $errors[] = t('error_email_exists');
+      } else {
+        // Create user
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO users (first_name, last_name, email, phone_number, address, password, note) VALUES (?, ?, ?, ?, ?, ?, 0)";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$first_name, $last_name, $email, $phone, $address, $hashed_password]);
+
+        $success = true;
+
+        // Redirect to login after 2 seconds
+        header('refresh:2; url=' . $base_url . 'app/Views/log_in.php');
+      }
+    } catch (Exception $e) {
+      $errors[] = 'Erreur lors de l\'inscription: ' . $e->getMessage();
+    }
+  }
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo $current_lang; ?>">
 
 <head>
   <meta charset="UTF-8">
-  <title>KeepMyPet - S'inscrire</title>
-  <!-- link rel="stylesheet" href="../../public/assets/css/main.css"-->
-  <link rel="stylesheet" href="<?php echo $base_url; ?>/public/assets/css/sign_up.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeepMyPet - <?php echo t('signup_title'); ?></title>
+  <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/log_in.css">
+  <link rel="stylesheet" href="<?php echo $base_url; ?>public/assets/css/Components/log_in.css">
 </head>
 
 <body>
+  <div class="login-page">
 
-  <div class=container>
-    <!-- Partie logo -->
+    <!-- Logo -->
     <div class="logo-container">
-      <img src="<?php echo $base_url; ?>/public/assets/images/KeepMyPet_Logo.png" alt="Logo KeepMyPet" class="logo">
+      <img src="<?php echo $base_url; ?>public/assets/images/KeepMyPet_Logo.png" alt="Logo KeepMyPet" class="logo">
     </div>
 
-    <div class="login-container">
-      <?php include $base_dir . '/app/Views/Components/sign_up.php'; ?>
+    <!-- Form Container -->
+    <div class="form-container">
+      <h1><?php echo t('signup_title'); ?></h1>
+      <p class="subtitle"><?php echo t('signup_subtitle'); ?></p>
+
+      <?php if ($success): ?>
+        <div class="success-box" style="background-color: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 15px; margin-bottom: 25px;">
+          <p style="color: #15803d; font-size: 14px;"><?php echo t('signup_success'); ?></p>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!empty($errors)): ?>
+        <div class="errors-box">
+          <?php foreach ($errors as $err): ?>
+            <p class="error-msg"><?php echo htmlspecialchars($err); ?></p>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!$success): ?>
+        <form method="POST" action="" class="login-form">
+          <div class="form-group">
+            <label for="first_name"><?php echo t('first_name'); ?></label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              placeholder="<?php echo t('first_name_placeholder'); ?>"
+              value="<?php echo htmlspecialchars($_POST['first_name'] ?? ''); ?>"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="last_name"><?php echo t('last_name'); ?></label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              placeholder="<?php echo t('last_name_placeholder'); ?>"
+              value="<?php echo htmlspecialchars($_POST['last_name'] ?? ''); ?>"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="email"><?php echo t('email'); ?></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="<?php echo t('email_placeholder'); ?>"
+              value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone"><?php echo t('phone_number'); ?></label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="<?php echo t('phone_placeholder'); ?>"
+              value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="address"><?php echo t('address'); ?></label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="<?php echo t('address_placeholder'); ?>"
+              value="<?php echo htmlspecialchars($_POST['address'] ?? ''); ?>"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="password"><?php echo t('password'); ?></label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="<?php echo t('password_min_placeholder'); ?>"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="password_confirm"><?php echo t('password_confirm'); ?></label>
+            <input
+              type="password"
+              id="password_confirm"
+              name="password_confirm"
+              placeholder="<?php echo t('password_confirm_placeholder'); ?>"
+              required>
+          </div>
+
+          <button type="submit" class="btn-login"><?php echo t('signup_button'); ?></button>
+        </form>
+      <?php endif; ?>
+
+      <div class="form-links">
+        <p>
+          <?php echo t('already_registered'); ?>
+          <a href="<?php echo $base_url; ?>app/Views/log_in.php"><?php echo t('login_link'); ?></a>
+        </p>
+      </div>
     </div>
-  </div>
 
-  <!-- Formes du fond -->
-  <div class="shapes-container">
-    <!-- Ronds -->
-    <div class="shape circle" id="c1"></div>
-    <div class="shape circle" id="c2"></div>
-    <div class="shape circle" id="c3"></div>
-    <div class="shape circle" id="c4"></div>
-    <div class="shape circle" id="c5"></div>
-    <div class="shape circle" id="c6"></div>
-    <div class="shape circle" id="c7"></div>
-    <div class="shape circle" id="c8"></div>
-
-    <!-- Triangles -->
-    <div class="shape triangle" id="t1"></div>
-    <div class="shape triangle" id="t2"></div>
-    <div class="shape triangle" id="t3"></div>
-    <div class="shape triangle" id="t4"></div>
-    <div class="shape triangle" id="t5"></div>
-    <div class="shape triangle" id="t6"></div>
-    <div class="shape triangle" id="t7"></div>
+    <!-- Background shapes -->
+    <div class="shapes-container">
+      <div class="shape circle" id="c1"></div>
+      <div class="shape circle" id="c2"></div>
+      <div class="shape circle" id="c3"></div>
+      <div class="shape circle" id="c4"></div>
+      <div class="shape circle" id="c5"></div>
+      <div class="shape circle" id="c6"></div>
+      <div class="shape circle" id="c7"></div>
+      <div class="shape circle" id="c8"></div>
+      <div class="shape circle" id="c9"></div>
+      <div class="shape circle" id="c10"></div>
+      <div class="shape triangle" id="t1"></div>
+      <div class="shape triangle" id="t2"></div>
+      <div class="shape triangle" id="t3"></div>
+      <div class="shape square" id="s1"></div>
+      <div class="shape square" id="s2"></div>
+    </div>
   </div>
 </body>
 
 </html>
-
-<?php
-// FOOTER
-include $base_dir . '/app/Views/Components/footer.php';
-?>

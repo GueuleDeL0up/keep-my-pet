@@ -18,7 +18,7 @@
   width: 4vw;
   height: 4vw;
   border-radius: 50%;
-  background-color: #60bdb6;
+  background-color: #5fbbb7;
 }
 
 /* Triangle */
@@ -27,7 +27,7 @@
   height: 0px;
   border-left: 2vw solid transparent;
   border-right: 2vw solid transparent;
-  border-bottom: 4vw solid #58b1c9;
+  border-bottom: 4vw solid #57b1c8;
 }
 
 /* --- RONDS (20) --- */

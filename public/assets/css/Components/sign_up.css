@@ -21,7 +21,7 @@ label {
   width: 100%;
   max-width: 100%; /* Empêche tout dépassement */
   padding: 13px 20px;
-  background: #e3e3e3;
+  background: #f0f0f0;
   border: none;
   border-radius: 25px;
   margin-bottom: 22px;
@@ -51,16 +51,17 @@ label {
   margin-right: auto;
   margin-top: 25px;
   padding: 12px 35px;
-  background: #bde6e3;
+  background: linear-gradient(135deg, #5fbbb7 0%, #57b1c8 100%);
   border: none;
   border-radius: 25px;
   font-size: 15px;
   cursor: pointer;
+  color: white;
   transition: 0.2s;
 }
 
 .btn:hover {
-  background: #a6d8d4;
+  background: linear-gradient(135deg, #57b1c8 0%, #5fbbb7 100%);
 }
 
 /* Liens en bas */
