@@ -7,7 +7,7 @@
 }
 
 .contact-content {
-  background-color: #cfebe7; /* Le vert d'eau de ton image */
+  background-color: #e0f2f0; /* Le vert d'eau de ton image */
   border-radius: 40px;
   width: 100%;
   max-width: 1000px;
@@ -64,9 +64,9 @@
 
 /* Bouton style Header */
 .btn-submit {
-  background-color: #a8dad4; /* Un peu plus foncé ou identique au header */
-  color: #333;
-  border: 2px solid #8ebcb6;
+  background-color: #5fbbb7; /* Un peu plus foncé ou identique au header */
+  color: white;
+  border: 2px solid #5fbbb7;
   padding: 12px 30px;
   border-radius: 25px;
   cursor: pointer;
@@ -76,7 +76,7 @@
 }
 
 .btn-submit:hover {
-  background-color: #8ebcb6;
+  background-color: #57b1c8;
 }
 
 /* Illustration */
@@ -97,4 +97,44 @@
   .contact-illustration {
     order: -1; /* Image en haut sur mobile */
   }
+}
+
+/* ==== Mode sombre : harmonisation des blocs clairs ====
+   On force les couleurs vers des tons foncés cohérents. */
+[data-theme="dark"] .contact-container {
+  background: transparent;
+}
+
+[data-theme="dark"] .contact-content {
+  background: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #e5e7eb !important;
+}
+
+[data-theme="dark"] .contact-content h2,
+[data-theme="dark"] .contact-content p,
+[data-theme="dark"] .form-group label {
+  color: #e5e7eb !important;
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+  background: #0f172a !important;
+  color: #e5e7eb !important;
+  border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .form-group input::placeholder,
+[data-theme="dark"] .form-group textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+[data-theme="dark"] .btn-submit {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  border-color: #06b6d4 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="dark"] .btn-submit:hover {
+  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%) !important;
 }
